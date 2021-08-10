@@ -3,13 +3,46 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="preload" href="%PUBLIC_URL%/fonts/roboto-regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="%PUBLIC_URL%/fonts/roboto-medium.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="%PUBLIC_URL%/fonts/roboto-bold.woff2" as="font" type="font/woff2" crossorigin />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
     <meta
       name="description"
       content="Сайт Лига Банка"
     />
     <title>Лига Банк</title>
+    <style>
+      @font-face {
+        font-family: "Roboto Regular";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: local("Roboto Regular"),
+        url("./fonts/roboto-regular.woff2") format("woff2"),
+        url("./fonts/roboto-regular.woff") format("woff");
+      }
+
+      @font-face {
+        font-family: "Roboto Medium";
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: local("Roboto Medium"),
+        url("./fonts/roboto-medium.woff2") format("woff2"),
+        url("./fonts/roboto-medium.woff") format("woff");
+      }
+
+      @font-face {
+        font-family: "Roboto Bold";
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: local("Roboto Bold"),
+        url("./fonts/roboto-bold.woff2") format("woff2"),
+        url("./fonts/roboto-bold.woff") format("woff");
+      }
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
