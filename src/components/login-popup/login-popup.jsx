@@ -53,15 +53,13 @@ const StyledFieldset = styled.fieldset`
 `;
 
 const styledLogin = css`
-  margin-bottom: 20px;
-  @media (max-width: ${BreakPoint.MAX_TABLET}px) {
-    margin-bottom: 23px;
-  }
+  margin-bottom: 23px;
   @media (max-width: ${BreakPoint.MAX_PHONE}px) {
     margin-bottom: 20px;
   }
 `;
 const styledLink = css`
+  margin-top: 7px;
   margin-bottom: 25px;
   align-self: flex-end;
   color: var(--color-dark-400);
@@ -70,9 +68,6 @@ const styledLink = css`
   transition: opacity 0.3s;
   &:hover {
     opacity: 0.7;
-  }
-  @media (max-width: ${BreakPoint.MAX_TABLET}px) {
-    margin-top: 7px;
   }
   @media (max-width: ${BreakPoint.MAX_PHONE}px) {
     order: 4;
