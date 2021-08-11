@@ -5,6 +5,7 @@ import Flex from '../flex/flex';
 import {BreakPoint} from '../../const';
 
 const StyledLabel = styled.label`
+  width: 100%;
   font-size: 16px;
   line-height: 22px;
   color: var(--color-dark-600);
@@ -66,8 +67,8 @@ function Input ({name, label, icon = null, onChange, ...attrs}, ref) {
   };
 
   return (
-    <StyledLabel>
-      <Flex isColumn isRelative>
+    <Flex isColumn isRelative>
+      <StyledLabel>
         <StyledSpan>
           {label}
         </StyledSpan>
@@ -78,15 +79,15 @@ function Input ({name, label, icon = null, onChange, ...attrs}, ref) {
           onChange={onChange}
           {...attrs}
         />
-        {icon &&
+      </StyledLabel>
+      {icon &&
         <StyledIcon
           type='button'
           icon={icon}
           onMouseDown={handleMouseDown}
           onMouseUp={handleMouseUp}
         />}
-      </Flex>
-    </StyledLabel>
+    </Flex>
   );
 }
 
