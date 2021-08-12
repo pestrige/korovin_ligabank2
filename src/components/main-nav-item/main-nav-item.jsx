@@ -6,6 +6,9 @@ import {Link} from 'react-router-dom';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import {BreakPoint} from '../../const';
+import {useDispatch, useSelector} from 'react-redux';
+import {setToggleMenu} from '../../store/actions';
+import {getMenuFlag} from '../../store/selectors';
 
 const StyledLi = styled.li`
   margin-top: 10px;
@@ -56,11 +59,20 @@ const linkStyles = css`
 `;
 
 export default function MainNavItem({children, path}) {
+  const dispatch = useDispatch();
+  const isMenuOpen = useSelector(getMenuFlag);
+  const handleClick = () => {
+    if (isMenuOpen) {
+      dispatch(setToggleMenu(false));
+    }
+  };
+
   return (
     <StyledLi>
       <Link
         css={linkStyles}
         to={path}
+        onClick={handleClick}
       >
         {children}
       </Link>
