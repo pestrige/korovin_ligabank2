@@ -24,6 +24,7 @@ const StyledNav = styled.nav`
   opacity: 1;
   visibility: visible;
   transition: opacity 0.3s;
+  z-index: 2;
   @media (max-width: ${BreakPoint.MAX_PHONE}px) {
     opacity: ${({isOpen}) => isOpen ? '1' : '0'};
     visibility: ${({isOpen}) => isOpen ? 'visible' : 'hidden'};
