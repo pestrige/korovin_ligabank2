@@ -16,7 +16,7 @@ export default function Slider() {
   return (
     <Swiper
       centeredSlides
-      // autoplay={{ delay: 4000, disableOnInteraction: false }}
+      autoplay={{ delay: 4000, disableOnInteraction: false }}
       pagination={{clickable: true}}
     >
       {slides.map((slide) => (
