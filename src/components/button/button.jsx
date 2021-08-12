@@ -1,42 +1,71 @@
+/** @jsxImportSource @emotion/react */
+
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from '@emotion/styled';
 import {BreakPoint} from '../../const';
 
-const StyledButton = styled.button`
-  font-family: var(--font-medium);
-  min-height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 18px;
-  line-height: 21px;
-  color: ${({variant}) => variant === 'primary' ? '#FFFFFF' : 'var(--color-dark)'};
-  background-color: ${({variant}) => variant === 'primary' ? 'var(--color-accent)' : '#FFFFFF'};
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: opacity 0.3s;
-  &:hover {
-    opacity: 0.8;
-  }
-  @media (max-width: ${BreakPoint.MAX_PHONE}px) {
-    min-height: 51px;
-  }
-`;
+const mediaQueryTablet = `@media (max-width: ${BreakPoint.MAX_TABLET}px)`;
+const mediaQueryPhone = `@media (max-width: ${BreakPoint.MAX_PHONE}px)`;
+const stylingButton = (variant, isInline, isAdaptive, isPadding, height) => ({
+  minHeight: height,
+  paddingLeft: isPadding ? '36px' : '0',
+  paddingRight: isPadding ? '36px' : '0',
+  display: isInline ? 'inline-flex' : 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  fontFamily: 'var(--font-medium)',
+  fontSize: '18px',
+  lineHeight: '21px',
+  color: variant === 'primary' ? '#FFFFFF' : 'var(--color-dark)',
+  backgroundColor: variant === 'primary' ? 'var(--color-accent)' : '#FFFFFF',
+  border: 'none',
+  borderRadius: '4px',
+  cursor: 'pointer',
+  transition: 'opacity 0.3s',
+  '&:hover': {
+    opacity: 0.8,
+  },
+  [mediaQueryTablet]: {
+    minHeight: '48px',
+    paddingLeft: isPadding ? '30px' : '0',
+    paddingRight: isPadding ? '30px' : '0',
+    fontSize: isAdaptive ? '16px' : '18px',
+    lineHeight: isAdaptive ? '19px' : '21px',
+  },
+  [mediaQueryPhone]: {
+    minHeight: isAdaptive ? '43px' : '51px',
+    fontSize: isAdaptive ? '14px' : '18px',
+    lineHeight: isAdaptive ? '16px' : '21px',
 
-export default function Button({variant = 'primary', children, ...attrs}) {
+  },
+});
+
+export default function Button({
+  variant = 'primary',
+  isInline = false,
+  isAdaptive = false,
+  isPadding = false,
+  height = '60px',
+  children,
+  ...attrs
+}) {
+  const Tag = attrs.href ? 'a' : 'button';
+
   return (
-    <StyledButton
-      variant={variant}
+    <Tag
+      css={stylingButton(variant, isInline, isAdaptive, isPadding, height)}
       {...attrs}
     >
       {children}
-    </StyledButton>
+    </Tag>
   );
 }
 
 Button.propTypes = {
   variant: PropTypes.string,
-  children: PropTypes.node.isRequired,
+  isInline: PropTypes.bool,
+  isAdaptive: PropTypes.bool,
+  isPadding: PropTypes.bool,
+  height: PropTypes.string,
+  children: PropTypes.node,
 };

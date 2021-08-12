@@ -14,13 +14,16 @@ const globalStyles = css`
     --font-medium: "Roboto Medium", "Arial", sans-serif;
     --font-bold: "Roboto Bold", "Arial", sans-serif;
 
-    --color-dark-800: #1F1E25;
     --color-dark-fade: rgba(31, 30, 37, 0.3);
+    --color-dark-800: #1F1E25;
+    --color-dark-700: #2B3C4F;
     --color-dark-600: #394959;
     --color-dark-400: #707C87;
+    --color-light: #E0E1EA;
     --color-outline: #C1C2CA;
     --color-background: #F6F7FF;
     --color-accent: #2C36F2;
+    --color-accent-dark: #2028B6;
     --color-error: crimson;
   }
 
@@ -32,11 +35,6 @@ const globalStyles = css`
 
   a {
     text-decoration: none;
-  }
-
-  img {
-    max-width: 100%;
-    height: auto;
   }
 
   body {
@@ -53,6 +51,26 @@ const globalStyles = css`
     display: grid;
     grid-template-rows: auto 1fr auto;
     min-height: 100vh;
+  }
+  .swiper-container .swiper-pagination {
+    bottom: 35px;
+    @media (max-width: ${BreakPoint.MAX_TABLET}px) {
+      bottom: 10px;
+    }
+    @media (max-width: ${BreakPoint.MAX_PHONE}px) {
+      bottom: 4px;
+    }
+  }
+  .swiper-pagination .swiper-pagination-bullet {
+    background-color: var(--color-accent-dark);
+    opacity: 1;
+    @media (max-width: ${BreakPoint.MAX_PHONE}px) {
+      width: 6px;
+      height: 6px;
+    }
+  }
+  .swiper-pagination .swiper-pagination-bullet-active {
+    background-color: var(--color-background);
   }
 
   .visually-hidden:not(:focus):not(:active),
