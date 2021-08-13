@@ -1,8 +1,11 @@
+/** @jsxImportSource @emotion/react */
+
 import React from 'react';
 import SwiperCore, {Autoplay, Pagination} from 'swiper';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 import Slide from './slide';
+import PropTypes from 'prop-types';
 
 SwiperCore.use([Autoplay, Pagination]);
 
@@ -12,22 +15,29 @@ const slides = [
   {id: 3, name: 'branches', title: 'Лига Банк', text: 'Всегда рядом', buttonText: 'Найти отделение', isDark: true, link: '/#'},
 ];
 
-export default function Slider() {
+export default function Slider({styles = ''}) {
   return (
-    <Swiper
-      centeredSlides
-      autoplay={{ delay: 4000, disableOnInteraction: false }}
-      pagination={{clickable: true}}
-    >
-      {slides.map((slide) => (
-        <SwiperSlide key={`${slide.id}-${slide.name}`}>
-          <Slide
-            data={slide}
-          />
-        </SwiperSlide>
-      ))}
-    </Swiper>
+    <section css={styles}>
+      <h2 className='visually-hidden'>Уникальные предложения от Лига Банка</h2>
+      <Swiper
+        centeredSlides
+        autoplay={{ delay: 4000, disableOnInteraction: false }}
+        pagination={{clickable: true}}
+      >
+        {slides.map((slide) => (
+          <SwiperSlide key={`${slide.id}-${slide.name}`}>
+            <Slide
+              data={slide}
+            />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </section>
   );
 }
+
+Slider.propTypes = {
+  styles: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+};
 
 
