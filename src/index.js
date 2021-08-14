@@ -52,26 +52,6 @@ const globalStyles = css`
     grid-template-rows: auto 1fr auto;
     min-height: 100vh;
   }
-  .swiper-container .swiper-pagination {
-    bottom: 35px;
-    @media (max-width: ${BreakPoint.MAX_TABLET}px) {
-      bottom: 10px;
-    }
-    @media (max-width: ${BreakPoint.MAX_PHONE}px) {
-      bottom: 4px;
-    }
-  }
-  .swiper-pagination .swiper-pagination-bullet {
-    background-color: var(--color-accent-dark);
-    opacity: 1;
-    @media (max-width: ${BreakPoint.MAX_PHONE}px) {
-      width: 6px;
-      height: 6px;
-    }
-  }
-  .swiper-pagination .swiper-pagination-bullet-active {
-    background-color: var(--color-background);
-  }
 
   .visually-hidden:not(:focus):not(:active),
   input[type="checkbox"].visually-hidden,

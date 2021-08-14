@@ -52,7 +52,7 @@ const ImageBlock = styled.div`
 const Image = styled.img`
   display: block;
 `;
-const Title = styled.h2`
+const Title = styled.h3`
   max-width: 400px;
   margin: 0 0 7px 0;
   font-family: var(--font-bold);

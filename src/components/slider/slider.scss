@@ -1,0 +1,20 @@
+.swiper-container .swiper-pagination {
+  bottom: 35px;
+  @media (max-width: 1023px) {
+  bottom: 10px;
+}
+  @media (max-width: 767px) {
+  bottom: 4px;
+}
+}
+.swiper-pagination .swiper-pagination-bullet {
+  background-color: var(--color-accent-dark);
+  opacity: 1;
+  @media (max-width: 767px) {
+  width: 6px;
+  height: 6px;
+}
+}
+.swiper-pagination .swiper-pagination-bullet-active {
+  background-color: var(--color-background);
+}

@@ -1,0 +1,22 @@
+.swiper-tabs-container-initialized {
+  background-color: var(--color-background);
+}
+.swiper-tabs-container-initialized .swiper-pagination {
+  display: none;
+  @media (max-width: 1023px) {
+    display: block;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  @media (max-width: 767px) {
+    margin-bottom: 0px;
+  }
+}
+.swiper-tabs-container-initialized .swiper-pagination-bullet {
+  &:not(:last-child) {
+    margin-right: 8px;
+  }
+}
+.swiper-tabs-container-initialized .swiper-pagination-bullet-active {
+  background-color: #E0E0E0;
+}

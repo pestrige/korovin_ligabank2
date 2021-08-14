@@ -6,16 +6,16 @@ import {BreakPoint} from '../../const';
 
 const mediaQueryTablet = `@media (max-width: ${BreakPoint.MAX_TABLET}px)`;
 const mediaQueryPhone = `@media (max-width: ${BreakPoint.MAX_PHONE}px)`;
-const stylingButton = (variant, isInline, isAdaptive, isPadding, height) => ({
-  minHeight: height,
+const stylingButton = (variant, isInline, isAdaptive, isPadding, isSmall, height) => ({
+  minHeight: isSmall ? '51px' : height,
   paddingLeft: isPadding ? '36px' : '0',
   paddingRight: isPadding ? '36px' : '0',
   display: isInline ? 'inline-flex' : 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   fontFamily: 'var(--font-medium)',
-  fontSize: '18px',
-  lineHeight: '21px',
+  fontSize: isSmall ? '16px' : '18px',
+  lineHeight: isSmall ? '19px' : '21px',
   color: variant === 'primary' ? '#FFFFFF' : 'var(--color-dark)',
   backgroundColor: variant === 'primary' ? 'var(--color-accent)' : '#FFFFFF',
   border: 'none',
@@ -45,6 +45,7 @@ export default function Button({
   isInline = false,
   isAdaptive = false,
   isPadding = false,
+  isSmall = false,
   height = '60px',
   children,
   ...attrs
@@ -53,7 +54,7 @@ export default function Button({
 
   return (
     <Tag
-      css={stylingButton(variant, isInline, isAdaptive, isPadding, height)}
+      css={stylingButton(variant, isInline, isAdaptive, isPadding, isSmall, height)}
       {...attrs}
     >
       {children}
@@ -66,6 +67,7 @@ Button.propTypes = {
   isInline: PropTypes.bool,
   isAdaptive: PropTypes.bool,
   isPadding: PropTypes.bool,
+  isSmall: PropTypes.bool,
   height: PropTypes.string,
   children: PropTypes.node,
 };
