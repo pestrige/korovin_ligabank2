@@ -3,9 +3,10 @@
 import React from 'react';
 import SwiperCore, {Autoplay, Pagination} from 'swiper';
 import {Swiper, SwiperSlide} from 'swiper/react';
-import 'swiper/swiper-bundle.min.css';
 import Slide from './slide';
 import PropTypes from 'prop-types';
+import 'swiper/swiper-bundle.min.css';
+import './slider.scss';
 
 SwiperCore.use([Autoplay, Pagination]);
 

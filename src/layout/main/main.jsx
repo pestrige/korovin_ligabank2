@@ -2,6 +2,7 @@ import React from 'react';
 import Slider from '../../components/slider/slider';
 import {css} from '@emotion/react';
 import {BreakPoint} from '../../const';
+import Tabs from '../../components/tabs/tabs';
 
 const sliderWrapper = css`
   margin-bottom: 60px;
@@ -9,12 +10,16 @@ const sliderWrapper = css`
     margin-bottom: 0;
   }
 `;
+const tabsWrapper = css`
+  margin-bottom: 110px;
+`;
 
 export default function Main() {
   return (
     <main>
       <h1 className='visually-hidden'>ЛИГА БАНК - лучший банк</h1>
       <Slider styles={sliderWrapper}/>
+      <Tabs styles={tabsWrapper}/>
     </main>
   );
 }
