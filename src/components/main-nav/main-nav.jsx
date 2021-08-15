@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import MainNavItem from '../main-nav-item/main-nav-item';
 import styled from '@emotion/styled';
@@ -68,6 +68,12 @@ export default function MainNav({
   onToggle,
   ...attrs}) {
   const menuItems = isFooter ? footerItems : headerItems;
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    }
+    return () => (document.body.style.overflow = 'visible');
+  }, [isOpen]);
 
   return (
     <StyledNav isOpen={isOpen} {...attrs}>

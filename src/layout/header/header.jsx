@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import React from 'react';
+import React, {useCallback, useEffect, useMemo} from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import Flex from '../../components/flex/flex';
@@ -14,7 +14,9 @@ import LoginPopup from '../../components/login-popup/login-popup';
 import {useDispatch, useSelector} from 'react-redux';
 import {getLoginPopupData, getMenuFlag} from '../../store/selectors';
 import {setToggleMenu} from '../../store/actions';
+import throttle from 'lodash.throttle';
 
+const THROTTLE_DELAY = 1000;
 const StyledHeader = styled.header`
   padding-top: 25px;
   padding-bottom: 23px;
@@ -22,7 +24,13 @@ const StyledHeader = styled.header`
   @media (max-width: ${BreakPoint.MAX_TABLET}px) {
     padding-top: 22px;
     padding-bottom: 12px;
-  }  @media (max-width: ${BreakPoint.MAX_PHONE}px) {
+  }
+  @media (max-width: ${BreakPoint.MAX_PHONE}px) {
+    position: ${({isMenuOpen}) => isMenuOpen ? 'fixed' : 'static'};
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
     padding-top: 15px;
     padding-bottom: 5px;
   }
@@ -41,9 +49,22 @@ export default function Header() {
   const handleToggleMenu = () => {
     dispatch(setToggleMenu(!isMenuOpen));
   };
+  // close menu when window resized
+  const handleResize = useCallback((evt) => {
+    const isNeedToClose = isMenuOpen && evt.target.innerWidth > BreakPoint.MAX_PHONE;
+    if (isNeedToClose) {
+      dispatch(setToggleMenu(false));
+    }
+  }, [isMenuOpen, dispatch]);
+  const throttledHandleResize = useMemo(() => throttle(handleResize, THROTTLE_DELAY), [handleResize]);
+
+  useEffect(() => {
+    window.addEventListener('resize', throttledHandleResize);
+    return () => window.removeEventListener('resize', throttledHandleResize);
+  }, [throttledHandleResize]);
 
   return (
-    <StyledHeader>
+    <StyledHeader isMenuOpen={isMenuOpen}>
       <Container>
         <Flex>
           <Burger onToggle={handleToggleMenu} />
