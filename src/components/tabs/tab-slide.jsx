@@ -11,7 +11,7 @@ import {BreakPoint} from '../../const';
 const Slide = styled.article`
   max-width: 1170px;
   margin: 0 auto;
-  padding: 53px 135px 55px 70px;
+  padding: 53px 135px 45px 70px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 130px;
