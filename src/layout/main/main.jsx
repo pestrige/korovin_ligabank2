@@ -13,6 +13,12 @@ const sliderWrapper = css`
 `;
 const tabsWrapper = css`
   margin-bottom: 96px;
+  @media (max-width: ${BreakPoint.MAX_TABLET}px) {
+    margin-bottom: 70px;
+  }
+  @media (max-width: ${BreakPoint.MAX_PHONE}px) {
+    margin-bottom: 55px;
+  }
 `;
 const calcWrapper = css`
   margin-bottom: 110px;
