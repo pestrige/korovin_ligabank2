@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import styled from '@emotion/styled';
 import {getCreditType} from '../../store/selectors';
 import {setCreditType, setStep} from '../../store/actions';
-import {CreditType, Steps} from '../../const';
+import {BreakPoint, CreditType, Steps} from '../../const';
 import StepTitle from './step-title';
 
 const purposes = [
@@ -33,6 +33,11 @@ const SelectButton = styled.button`
   border-radius: ${({isOpen}) => isOpen ? '4px 4px 0 0' : '4px'};
   cursor: pointer;
   transition: background-image 0.3s;
+  @media (max-width: ${BreakPoint.MAX_PHONE}px) {
+    padding-left: 14px;
+    padding-right: 45px;
+    background-position: center right 13px;
+  }
 `;
 const CreditsList = styled.div`
   margin-top: 0;
@@ -61,6 +66,12 @@ const Label = styled.label`
   transition: background-color 0.3s;
   &:hover {
     background-color: var(--color-background);
+  }
+  @media (max-width: ${BreakPoint.MAX_TABLET}px) {
+    padding: 19px 23px;
+  }
+  @media (max-width: ${BreakPoint.MAX_PHONE}px) {
+    padding: 19px 14px;
   }
 `;
 const Input = styled.input`

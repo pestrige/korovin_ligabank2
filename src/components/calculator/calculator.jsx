@@ -7,11 +7,16 @@ import CreditForm from '../credit-form/credit-form';
 import CreditOffer from '../credit-offer/credit-offer';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
+import {BreakPoint} from '../../const';
 
 const CreditWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 500px;
   column-gap: 70px;
+  @media (max-width: ${BreakPoint.MAX_TABLET}px) {
+    grid-template-columns: 1fr;
+    row-gap: 40px;
+  }
 `;
 
 export default function Calculator({styles}) {
