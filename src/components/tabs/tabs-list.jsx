@@ -47,7 +47,7 @@ const TabName = styled.span`
     left: 0;
     width: 34px;
     height: 34px;
-    background-image: ${({name}) => `url(${process.env.PUBLIC_URL}/images/tabs/${name}-icon.svg)`};
+    background-image: ${({dataName}) => `url(${process.env.PUBLIC_URL}/images/tabs/${dataName}-icon.svg)`};
     background-repeat: no-repeat;
     background-position: center;
   }
@@ -63,7 +63,7 @@ export default function TabsList({onTabClick, activeSlide}) {
             onClick={() => onTabClick(id)}
             type='button'
           >
-            <TabName name={name}>
+            <TabName dataName={name}>
               {tabName}
             </TabName>
           </Tab>
