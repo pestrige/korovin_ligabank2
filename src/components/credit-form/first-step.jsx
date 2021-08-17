@@ -32,6 +32,7 @@ const SelectButton = styled.button`
   border: 1px solid #1F1E25;
   border-radius: ${({isOpen}) => isOpen ? '4px 4px 0 0' : '4px'};
   cursor: pointer;
+  outline-color: var(--color-accent);
   transition: background-image 0.3s;
   @media (max-width: ${BreakPoint.MAX_PHONE}px) {
     padding-left: 14px;
@@ -39,7 +40,7 @@ const SelectButton = styled.button`
     background-position: center right 13px;
   }
 `;
-const CreditsList = styled.div`
+const CreditsList = styled.ul`
   margin-top: 0;
   margin-bottom: 0;
   padding-left: 0;
@@ -87,7 +88,7 @@ export default function FirstStep() {
   const closeSelect = (value) => {
     setIsOpen(false);
     dispatch(setCreditType(value));
-    dispatch(setStep(2));
+    dispatch(setStep(Steps.SECOND.id));
   };
   const handleClick = (evt) => {
     closeSelect(evt.target.htmlFor);
@@ -100,7 +101,7 @@ export default function FirstStep() {
   };
 
   return (
-    <StepTitle title={Steps.FIRST}>
+    <StepTitle title={Steps.FIRST.title}>
       <SelectWrapper isOpen={isOpen}>
         <SelectButton
           type='button'
