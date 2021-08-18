@@ -43,7 +43,7 @@ const globalStyles = css`
     padding: 0;
     font-family: var(--font-regular);
     font-size: 16px;
-    line-height: 22px;
+    line-height: 140%;
     color: var(--color-dark-800);
   }
 

@@ -78,7 +78,7 @@ export default function InputRange({
   ...attrs
 }) {
   const handleChange = (evt) => {
-    onChange(evt.target.value, evt.target.name);
+    onChange(evt.target.value);
   };
 
   return (

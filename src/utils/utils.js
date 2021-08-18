@@ -1,4 +1,16 @@
-import {ALLOWED_KEYS, MAX_PRICE, MIN_PRICE, PRICE_STEP} from '../const';
+import {
+  ALLOWED_KEYS, INCOME_RATE,
+  MAX_PRICE,
+  MIN_PRICE,
+  MOM_CAPITAL,
+  MORTGAGE_CHANGING_RATE,
+  MortgageRate,
+  Postfix,
+  PRICE_STEP
+} from '../const';
+const MONTHS = 12;
+const MAX_PERCENTAGE = 100;
+const STEP = 1;
 
 export const isAllowedKeyPress = (key) => ALLOWED_KEYS.includes(key) || key === 'Backspace' || key === 'Delete';
 
@@ -11,7 +23,7 @@ export const addSpaces = (value) => {
   return stringWithSpaces.trim();
 };
 
-export const toNumber = (string) => Math.round(string.replace(' рублей', '').replace(/\s/g, ''));
+export const toNumber = (string) => Math.round(string.replace(` ${Postfix.RUBLES}`, '').replace(/\s/g, ''));
 
 export const checkPriceRange = (price) => {
   const value = typeof price === 'string' ? toNumber(price) : price;
@@ -26,19 +38,45 @@ export const calcMinDeposit = (price, rate = '10', withPostfix = true) => {
   const adaptedPrice = typeof price === 'string' ? toNumber(price) : price;
   const adaptedRate = Number(rate) / 100;
   const deposit = Math.round(adaptedPrice * adaptedRate);
-  // eslint-disable-next-line no-console
-  console.log('deposit', deposit);
-  return withPostfix ? `${addSpaces(deposit)} рублей` : addSpaces(deposit);
+  return withPostfix ? `${addSpaces(deposit)} ${Postfix.RUBLES}` : addSpaces(deposit);
 };
 
 export const calcDepositRate = (price, deposit) => {
   const adaptedPrice = toNumber(price);
   const adaptedDeposit = toNumber(deposit);
-  // eslint-disable-next-line no-console
-  console.log('price', adaptedPrice, 'deposit', adaptedDeposit);
-  const rate = adaptedDeposit * 100 / adaptedPrice;
-  // eslint-disable-next-line no-console
-  console.log('rate', rate);
-  return rate;
+  return adaptedDeposit * 100 / adaptedPrice;
 };
 
+export const calcMortgageSum = (price, deposit, isMomCapital) => {
+  const adaptedPrice = typeof price === 'string' ? toNumber(price) : price;
+  const adaptedDeposit = typeof deposit === 'string' ? toNumber(deposit) : deposit;
+  const momCapital = isMomCapital ? MOM_CAPITAL : 0;
+  const sum = adaptedPrice - adaptedDeposit - momCapital;
+  const sumAsString = `${addSpaces(sum)} ${Postfix.RUBLES}`;
+  return {number: sum, string: sumAsString};
+};
+
+export const calcMortgageRate = (depositRate) => {
+  const rateType = +depositRate > MORTGAGE_CHANGING_RATE ? 'MIN' : 'MAX';
+  return MortgageRate[rateType];
+};
+
+export const calcPayment = (sum, rate, years) => {
+  const periods = +years.replace(' лет', '') * MONTHS;
+  const monthRate = rate / MAX_PERCENTAGE / MONTHS;
+  const denominator = Math.pow((STEP + monthRate), periods) - STEP;
+  const payment = Math.round(sum * (monthRate + monthRate / denominator));
+
+  return {
+    number: payment,
+    string: `${addSpaces(payment)} рублей`,
+  };
+};
+
+export const calcIncome = (payment) => {
+  const income = Math.round(payment / INCOME_RATE);
+  return {
+    number: income,
+    string: `${addSpaces(income)} рублей`,
+  };
+};
