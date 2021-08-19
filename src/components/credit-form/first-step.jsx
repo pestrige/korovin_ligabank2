@@ -2,9 +2,10 @@ import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import styled from '@emotion/styled';
 import {getCreditType} from '../../store/selectors';
-import {setCreditType, setStep} from '../../store/actions';
+import {setCreditType, setDefaults, setStep} from '../../store/actions';
 import {BreakPoint, CreditType, Steps} from '../../const';
 import StepTitle from './step-title';
+import {getDefaults} from '../../utils/utils';
 
 const purposes = [
   {id: 0, value: CreditType.mortgage.value, label: CreditType.mortgage.label},
@@ -89,6 +90,7 @@ export default function FirstStep() {
     setIsOpen(false);
     dispatch(setCreditType(value));
     dispatch(setStep(Steps.SECOND.id));
+    dispatch(setDefaults(getDefaults(value)));
   };
   const handleClick = (evt) => {
     closeSelect(evt.target.htmlFor);

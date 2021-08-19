@@ -7,7 +7,9 @@ import CreditForm from '../credit-form/credit-form';
 import CreditOffer from '../credit-offer/credit-offer';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import {BreakPoint} from '../../const';
+import {BreakPoint, Steps} from '../../const';
+import {useSelector} from 'react-redux';
+import {getStep} from '../../store/selectors';
 
 const CreditWrapper = styled.div`
   display: grid;
@@ -15,18 +17,20 @@ const CreditWrapper = styled.div`
   column-gap: 70px;
   @media (max-width: ${BreakPoint.MAX_TABLET}px) {
     grid-template-columns: 1fr;
-    row-gap: 40px;
+    row-gap: 19px;
   }
 `;
 
 export default function Calculator({styles}) {
+  const step = useSelector(getStep);
+
   return (
     <section css={styles}>
       <Container>
         <SectionTitle>Кредитный калькулятор</SectionTitle>
         <CreditWrapper>
           <CreditForm />
-          <CreditOffer />
+          {step >= Steps.SECOND.id && <CreditOffer/>}
         </CreditWrapper>
       </Container>
     </section>

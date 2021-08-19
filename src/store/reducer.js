@@ -1,8 +1,9 @@
 import { createReducer } from '@reduxjs/toolkit';
 import {
-  setCreditType,
+  setCASCO,
+  setCreditType, setDefaults,
   setDeposit,
-  setDepositRate,
+  setDepositRate, setInsurance,
   setLoginPopup,
   setMomCapital,
   setPrice,
@@ -22,6 +23,8 @@ const initialState = {
   years: '5 лет',
   yearsRate: '5',
   isMomCapital: true,
+  isCASCO: true,
+  isInsurance: true,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -55,5 +58,21 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setMomCapital, (state, action) => {
       state.isMomCapital = action.payload;
+    })
+    .addCase(setCASCO, (state, action) => {
+      state.isCASCO = action.payload;
+    })
+    .addCase(setInsurance, (state, action) => {
+      state.isInsurance = action.payload;
+    })
+    .addCase(setDefaults, (state, action) => {
+      state.price = action.payload.price;
+      state.deposit = action.payload.deposit;
+      state.depositRate = action.payload.depositRate;
+      state.years = action.payload.years;
+      state.yearsRate = action.payload.yearsRate;
+      state.isMomCapital = action.payload?.isMomCapital || true;
+      state.isCASCO = action.payload?.isCASCO || true;
+      state.isInsurance = action.payload?.isInsurance || true;
     });
 });
