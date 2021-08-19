@@ -53,7 +53,6 @@ export default function Years({type, styles}) {
   return (
     <>
       <Input
-        variant='secondary'
         name={InputName.YEARS}
         value={years}
         onChange={handleYearsChange}

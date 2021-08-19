@@ -12,25 +12,27 @@ const FieldSet = styled.fieldset`
   }
 `;
 const Legend = styled.legend`
-  margin-bottom: 20px;
+  margin-bottom: ${({isCentered}) => isCentered ? '29px' : '20px'};
   font-family: var(--font-medium);
   font-size: 22px;
   line-height: 31px;
+  text-align: ${({isCentered}) => isCentered ? 'center' : 'left'};
   @media (max-width: ${BreakPoint.MAX_TABLET}px) {
+    margin-bottom: ${({isCentered}) => isCentered ? '44px' : '20px'};
     font-size: 18px;
     line-height: 25px;
   }
   @media (max-width: ${BreakPoint.MAX_PHONE}px) {
-    margin-bottom: 14px;
+    margin-bottom: ${({isCentered}) => isCentered ? '37px' : '14px'};
     font-size: 16px;
     line-height: 22px;
   }
 `;
 
-export default function StepTitle({title, children}) {
+export default function StepTitle({title, isCentered = false, children}) {
   return (
     <FieldSet>
-      <Legend>{title}</Legend>
+      <Legend isCentered={isCentered}>{title}</Legend>
       {children}
     </FieldSet>
   );
@@ -38,5 +40,6 @@ export default function StepTitle({title, children}) {
 
 StepTitle.propTypes = {
   title: PropTypes.string.isRequired,
+  isCentered: PropTypes.bool,
   children: PropTypes.node.isRequired,
 };

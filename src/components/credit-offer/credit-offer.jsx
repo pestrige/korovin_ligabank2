@@ -13,6 +13,7 @@ const Wrapper = styled.div`
   background-color: var(--color-background);
   border-radius: 4px;
   @media (max-width: ${BreakPoint.MAX_TABLET}px) {
+    grid-row: 2 / 3;
     margin-top: 0;
     padding-left: 60px;
     padding-right: 60px;

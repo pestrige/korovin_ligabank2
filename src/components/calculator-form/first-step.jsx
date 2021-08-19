@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import {getCreditType} from '../../store/selectors';
 import {setCreditType, setDefaults, setStep} from '../../store/actions';
 import {BreakPoint, CreditType, Steps} from '../../const';
-import StepTitle from './step-title';
+import StepTitle from '../step-title/step-title';
 import {getDefaults} from '../../utils/utils';
 
 const purposes = [

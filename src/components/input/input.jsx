@@ -46,7 +46,7 @@ const StyledInput = styled.input`
   width: 100%;
   height: 60px;
   padding-left: 20px;
-  padding-right: ${({icon}) => icon ? '60px' : '20px'};
+  padding-right: ${({icon}) => icon ? '60px' : '23px'};
   font-size: 16px;
   line-height: 22px;
   color: var(--color-dark-800);
@@ -55,7 +55,17 @@ const StyledInput = styled.input`
   border-color: ${({isError}) => isError ? 'var(--color-error)' : 'var(--color-dark-800)'};
   outline-color: ${({isError}) => isError ? 'var(--color-error)' : 'var(--color-accent)'};
   border-radius: 4px;
-  background-color: ${({variant}) => variant === 'secondary' ? 'white' : 'var(--color-background)'};
+  background-color: transparent;
+  @media (max-width: ${BreakPoint.MAX_PHONE}px) {
+    padding-left: ${({icon}) => icon ? '60px' : '15px'};
+  }
+  &::placeholder {
+    font-size: 18px;
+    color: var(--color-dark-400);
+    @media (max-width: ${BreakPoint.MAX_PHONE}px) {
+      font-size: 16px;
+    }
+  }
 `;
 
 const StyledIcon = styled.button`
@@ -91,7 +101,9 @@ function Input ({
   withControls,
   onChange,
   onControlClick,
+  isLabelHidden = false,
   isError = false,
+  wrapperStyle = '',
   ...attrs
 }, ref) {
 
@@ -107,14 +119,14 @@ function Input ({
   };
 
   return (
-    <Grid>
+    <Grid css={wrapperStyle}>
       {withControls && <Control onControlClick={onControlClick}/>}
       <Flex
         isColumn
         isRelative
         css={styledFlex}
       >
-        <StyledLabel>
+        <StyledLabel className={isLabelHidden ? 'visually-hidden' : ''}>
           <StyledSpan isError={isError}>
             {label}
           </StyledSpan>
@@ -153,4 +165,6 @@ Input.propTypes = {
   onControlClick: PropTypes.func,
   withControls: PropTypes.bool,
   isError: PropTypes.bool,
+  isLabelHidden: PropTypes.bool,
+  wrapperStyle: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 };

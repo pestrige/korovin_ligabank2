@@ -64,7 +64,6 @@ export default function Deposit({type, styles}) {
   return (
     <>
       <Input
-        variant='secondary'
         name={InputName.DEPOSIT}
         value={deposit}
         onChange={handleDepositChange}

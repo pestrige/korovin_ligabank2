@@ -1,6 +1,6 @@
 import React from 'react';
-import StepTitle from './step-title';
-import {Steps} from '../../const';
+import StepTitle from '../step-title/step-title';
+import {BreakPoint, Steps} from '../../const';
 
 import Price from './price';
 import Deposit from './deposit';
@@ -16,8 +16,11 @@ const styledInput = css`
   margin-bottom: 3px;
   font-family: var(--font-medium);
   font-size: 18px;
-  line-height: 25px;
+  line-height: 140%;
   text-align: center;
+  @media (max-width: ${BreakPoint.MAX_PHONE}px) {
+    font-size: 16px;
+  }
 `;
 
 export default function SecondStep() {

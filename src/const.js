@@ -73,8 +73,8 @@ export const Steps = {
 
 export const CreditType = {
   default: {value: 'default', label: 'Выберите цель кредита'},
-  mortgage: {value: 'mortgage', label: 'Ипотечное кредитование', name: 'ипотечные кредиты', sumName: 'ипотеки'},
-  car: {value: 'car', label: 'Автомобильное кредитование', name: 'автокредиты', sumName: 'автокредита'},
+  mortgage: {value: 'mortgage', label: 'Ипотечное кредитование', name: 'ипотечные кредиты', sumName: 'ипотеки', formName: 'Ипотека'},
+  car: {value: 'car', label: 'Автомобильное кредитование', name: 'автокредиты', sumName: 'автокредита', formName: 'Автокредит'},
 };
 
 export const PriceTitle = {
