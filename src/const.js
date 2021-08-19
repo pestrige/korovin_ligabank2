@@ -68,6 +68,7 @@ export const Postfix = {
 export const Steps = {
   FIRST: {id: 1, title: 'Шаг 1. Цель кредита'},
   SECOND: {id: 2, title: 'Шаг 2. Введите параметры кредита'},
+  THIRD: {id: 3, title: 'Шаг 3. Оформление заявки'},
 };
 
 export const CreditType = {

@@ -5,7 +5,7 @@ import {getStep} from '../../store/selectors';
 import SecondStep from './second-step';
 import {Steps} from '../../const';
 
-export default function CreditForm() {
+export default function CalculatorForm() {
   const step = useSelector(getStep);
   return (
     <form name='credit-calculator'>

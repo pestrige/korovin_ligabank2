@@ -3,7 +3,7 @@
 import React from 'react';
 import Container from '../container/container';
 import SectionTitle from '../section-title/section-title';
-import CreditForm from '../credit-form/credit-form';
+import CalculatorForm from '../calculator-form/calculator-form';
 import CreditOffer from '../credit-offer/credit-offer';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
@@ -29,7 +29,7 @@ export default function Calculator({styles}) {
       <Container>
         <SectionTitle>Кредитный калькулятор</SectionTitle>
         <CreditWrapper>
-          <CreditForm />
+          <CalculatorForm />
           {step >= Steps.SECOND.id && <CreditOffer/>}
         </CreditWrapper>
       </Container>
