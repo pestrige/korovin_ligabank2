@@ -5,7 +5,7 @@ import {
   setDeposit,
   setDepositRate, setInsurance,
   setLoginPopup,
-  setMomCapital,
+  setMomCapital, setOrderId,
   setPrice,
   setStep,
   setToggleMenu, setYears, setYearsRate
@@ -25,6 +25,7 @@ const initialState = {
   isMomCapital: true,
   isCASCO: true,
   isInsurance: true,
+  orderId: 1,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -74,5 +75,8 @@ export const reducer = createReducer(initialState, (builder) => {
       state.isMomCapital = action.payload?.isMomCapital || true;
       state.isCASCO = action.payload?.isCASCO || true;
       state.isInsurance = action.payload?.isInsurance || true;
+    })
+    .addCase(setOrderId, (state, action) => {
+      state.orderId = action.payload;
     });
 });

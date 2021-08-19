@@ -13,6 +13,8 @@ import {
 const MONTHS = 12;
 const MAX_PERCENTAGE = 100;
 const STEP = 1;
+const ORDER_DIGITS_COUNT = 4;
+const MAX_ORDER_DIGITS_COUNT = 1000;
 const postfixs = ['год', 'года', 'лет'];
 
 export const isAllowedKeyPress = (key) => ALLOWED_KEYS.includes(key) || key === 'Backspace' || key === 'Delete';
@@ -149,4 +151,9 @@ export const getDefaults = (type) => {
   };
 
   return defaults[type];
+};
+
+export const formatOrderNumber = (id) => {
+  const formattedID = id > MAX_ORDER_DIGITS_COUNT ? id : `000${id}`.slice(-ORDER_DIGITS_COUNT);
+  return `№ ${formattedID}`;
 };

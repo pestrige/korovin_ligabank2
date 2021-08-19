@@ -68,12 +68,13 @@ export const Postfix = {
 export const Steps = {
   FIRST: {id: 1, title: 'Шаг 1. Цель кредита'},
   SECOND: {id: 2, title: 'Шаг 2. Введите параметры кредита'},
+  THIRD: {id: 3, title: 'Шаг 3. Оформление заявки'},
 };
 
 export const CreditType = {
   default: {value: 'default', label: 'Выберите цель кредита'},
-  mortgage: {value: 'mortgage', label: 'Ипотечное кредитование', name: 'ипотечные кредиты', sumName: 'ипотеки'},
-  car: {value: 'car', label: 'Автомобильное кредитование', name: 'автокредиты', sumName: 'автокредита'},
+  mortgage: {value: 'mortgage', label: 'Ипотечное кредитование', name: 'ипотечные кредиты', sumName: 'ипотеки', formName: 'Ипотека'},
+  car: {value: 'car', label: 'Автомобильное кредитование', name: 'автокредиты', sumName: 'автокредита', formName: 'Автокредит'},
 };
 
 export const PriceTitle = {

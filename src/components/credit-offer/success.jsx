@@ -3,12 +3,13 @@
 import React from 'react';
 import Flex from '../flex/flex';
 import Button from '../button/button';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {getCreditType, getFinalSum, getIncome, getCreditRate, getPayment} from '../../store/selectors';
 import styled from '@emotion/styled';
 import {css} from '@emotion/react';
 import OfferTitle from './offer-title';
-import {BreakPoint, CreditType} from '../../const';
+import {BreakPoint, CreditType, Steps} from '../../const';
+import {setStep} from '../../store/actions';
 
 const Result = styled.div`
   display: grid;
@@ -60,11 +61,16 @@ const styledButton = css`
 `;
 
 export default function Success() {
+  const dispatch = useDispatch();
   const type = useSelector(getCreditType);
   const finalSum = useSelector(getFinalSum);
   const finalRate = useSelector(getCreditRate);
   const payment = useSelector(getPayment);
   const income = useSelector(getIncome);
+
+  const handleClick = () => {
+    dispatch(setStep(Steps.THIRD.id));
+  };
 
   return (
     <>
@@ -88,6 +94,7 @@ export default function Success() {
         </Flex>
         <Button
           isAdaptive
+          onClick={handleClick}
           css={styledButton}
         >
           Оформить заявку

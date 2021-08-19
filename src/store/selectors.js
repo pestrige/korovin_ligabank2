@@ -1,5 +1,12 @@
 import { createSelector } from 'reselect';
-import {calcIncome, calcCreditRate, calcCreditSum, calcOptionsSum, calcPayment} from '../utils/utils';
+import {
+  calcIncome,
+  calcCreditRate,
+  calcCreditSum,
+  calcOptionsSum,
+  calcPayment,
+  formatOrderNumber
+} from '../utils/utils';
 import {MinCredit} from '../const';
 
 export const getLoginPopupData = (store) => store.isLoginOpen;
@@ -14,6 +21,7 @@ export const getYearsRate = (store) => store.yearsRate;
 export const getMomCapitalFlag = (store) => store.isMomCapital;
 export const getCASCOFlag = (store) => store.isCASCO;
 export const getInsuranceFlag = (store) => store.isInsurance;
+export const getOrderId = (store) => store.orderId;
 
 const getOptionsSum = createSelector(
   [getCreditType, getMomCapitalFlag],
@@ -38,4 +46,9 @@ export const getIncome = createSelector(
 export const getSuccessCreditFlag = createSelector(
   [getFinalSum, getCreditType],
   (sum, type) => sum.number > MinCredit[type].number,
+);
+
+export const getOrderNumber = createSelector(
+  getOrderId,
+  (id) => formatOrderNumber(id),
 );

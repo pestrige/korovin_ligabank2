@@ -88,7 +88,6 @@ export default function Price({type, styles}) {
     <>
       <Input
         withControls
-        variant='secondary'
         name={InputName.PRICE}
         value={price}
         onChange={handlePriceChange}
