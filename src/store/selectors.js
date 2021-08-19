@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
-import {calcIncome, calcMortgageRate, calcMortgageSum, calcPayment} from '../utils/utils';
-import {MIN_MORTGAGE} from '../const';
+import {calcIncome, calcCreditRate, calcCreditSum, calcOptionsSum, calcPayment} from '../utils/utils';
+import {MinCredit} from '../const';
 
 export const getLoginPopupData = (store) => store.isLoginOpen;
 export const getMenuFlag = (store) => store.isMenuOpen;
@@ -12,17 +12,23 @@ export const getDepositRate = (store) => store.depositRate;
 export const getYears = (store) => store.years;
 export const getYearsRate = (store) => store.yearsRate;
 export const getMomCapitalFlag = (store) => store.isMomCapital;
+export const getCASCOFlag = (store) => store.isCASCO;
+export const getInsuranceFlag = (store) => store.isInsurance;
 
-export const getFinalSum = createSelector(
-  [getPrice, getDeposit, getMomCapitalFlag],
-  (price, deposit, isMomCapital) => calcMortgageSum(price, deposit, isMomCapital),
+const getOptionsSum = createSelector(
+  [getCreditType, getMomCapitalFlag],
+  (type, isMom) => calcOptionsSum(type, isMom),
 );
-export const getMortgageRate = createSelector(
-  getDepositRate,
-  (depositRate) => calcMortgageRate(depositRate),
+export const getFinalSum = createSelector(
+  [getPrice, getDeposit, getOptionsSum],
+  (price, deposit, options) => calcCreditSum(price, deposit, options),
+);
+export const getCreditRate = createSelector(
+  [getPrice, getDepositRate, getCreditType, getCASCOFlag, getInsuranceFlag],
+  (price, depositRate, type, isCasco, isInsurance) => calcCreditRate(price, depositRate, type, isCasco, isInsurance),
 );
 export const getPayment = createSelector(
-  [getFinalSum, getMortgageRate, getYears],
+  [getFinalSum, getCreditRate, getYears],
   (sum, rate, years) => calcPayment(sum.number, rate.number, years),
 );
 export const getIncome = createSelector(
@@ -30,6 +36,6 @@ export const getIncome = createSelector(
   (payment) => calcIncome(payment.number),
 );
 export const getSuccessCreditFlag = createSelector(
-  getFinalSum,
-  (sum) => sum.number > MIN_MORTGAGE,
+  [getFinalSum, getCreditType],
+  (sum, type) => sum.number > MinCredit[type].number,
 );

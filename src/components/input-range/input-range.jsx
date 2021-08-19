@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import {BreakPoint} from '../../const';
+import {calcPostfix} from '../../utils/utils';
 
 const Wrapper = styled.div`
   margin-bottom: 23px;
@@ -73,6 +74,7 @@ export default function InputRange({
   step = '5',
   label = '',
   withMaxText = false,
+  isCalculatePrefix = false,
   prefix,
   onChange,
   ...attrs
@@ -94,7 +96,7 @@ export default function InputRange({
         {...attrs}
       />
       <RangeText>
-        <span>{value}{prefix}</span>
+        <span>{value} {isCalculatePrefix ? calcPostfix(value) : prefix}</span>
         <span>{withMaxText && `${max}${prefix}`}</span>
       </RangeText>
     </Wrapper>
@@ -108,6 +110,7 @@ InputRange.propTypes = {
   step: PropTypes.string,
   label: PropTypes.string,
   withMaxText: PropTypes.bool,
+  isCalculatePrefix: PropTypes.bool,
   prefix: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };

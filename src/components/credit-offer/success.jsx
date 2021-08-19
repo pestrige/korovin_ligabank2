@@ -4,11 +4,11 @@ import React from 'react';
 import Flex from '../flex/flex';
 import Button from '../button/button';
 import {useSelector} from 'react-redux';
-import {getFinalSum, getIncome, getMortgageRate, getPayment} from '../../store/selectors';
+import {getCreditType, getFinalSum, getIncome, getCreditRate, getPayment} from '../../store/selectors';
 import styled from '@emotion/styled';
 import {css} from '@emotion/react';
 import OfferTitle from './offer-title';
-import {BreakPoint} from '../../const';
+import {BreakPoint, CreditType} from '../../const';
 
 const Result = styled.div`
   display: grid;
@@ -60,9 +60,9 @@ const styledButton = css`
 `;
 
 export default function Success() {
-  //const creditType = useSelector(getCreditType);
+  const type = useSelector(getCreditType);
   const finalSum = useSelector(getFinalSum);
-  const finalRate = useSelector(getMortgageRate);
+  const finalRate = useSelector(getCreditRate);
   const payment = useSelector(getPayment);
   const income = useSelector(getIncome);
 
@@ -71,7 +71,7 @@ export default function Success() {
       <OfferTitle />
       <Result>
         <Flex isColumn>
-          <ResultTitle>Сумма ипотеки</ResultTitle>
+          <ResultTitle>Сумма {CreditType[type].sumName}</ResultTitle>
           <ResultValue>{finalSum.string}</ResultValue>
         </Flex>
         <Flex isColumn>

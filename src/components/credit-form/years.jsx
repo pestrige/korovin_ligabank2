@@ -4,11 +4,17 @@ import Input from '../input/input';
 import InputRange from '../input-range/input-range';
 import {useDispatch, useSelector} from 'react-redux';
 import {getYears, getYearsRate} from '../../store/selectors';
-import {isAllowedKeyPress} from '../../utils/utils';
+import {calcPostfix, clearPostfix, isAllowedKeyPress, setPostfix} from '../../utils/utils';
 import {setYears, setYearsRate} from '../../store/actions';
-import {InputName, Postfix, YEARS_MAX_RANGE, YEARS_MIN_RANGE, YEARS_RANGE_STEP} from '../../const';
+import {
+  InputName,
+  Postfix,
+  YEARS_RANGE_STEP,
+  YearsMaxRange,
+  YearsMinRange
+} from '../../const';
 
-export default function Years({styles}) {
+export default function Years({type, styles}) {
   const dispatch = useDispatch();
   const years = useSelector(getYears);
   const yearsRate = useSelector(getYearsRate);
@@ -21,28 +27,27 @@ export default function Years({styles}) {
     if (!isAllowedKeyPress(key)) {
       return;
     }
-    let value = evt.target.value;
-    if (+value < YEARS_MIN_RANGE) {
-      value = YEARS_MIN_RANGE;
+    let value = evt.target.value.replace(/^0+/, '');
+    if (+value < +YearsMinRange[type]) {
+      value = YearsMinRange[type];
     }
-    if (+value > YEARS_MAX_RANGE) {
-      value = YEARS_MAX_RANGE;
+    if (+value > +YearsMaxRange[type]) {
+      value = YearsMaxRange[type];
     }
     dispatch(setYears(value));
     dispatch(setYearsRate(value));
   };
   const handleFocus = (evt) => {
-    const newValue = evt.target.value.replace(` ${Postfix.YEARS}`, '');
+    const newValue = clearPostfix(evt.target.value);
     dispatch(setYears(newValue));
   };
   const handleBlur = (evt) => {
-    const value = evt.target.value;
-    const newValue = value === '' ? `0 ${Postfix.YEARS}` : `${value} ${Postfix.YEARS}`;
+    const newValue = setPostfix(evt.target.value);
     dispatch(setYears(newValue));
   };
   const handleRangeChange = (value) => {
     dispatch(setYearsRate(value));
-    dispatch(setYears(`${value} лет`));
+    dispatch(setYears(`${value} ${calcPostfix(value)}`));
   };
 
   return (
@@ -66,9 +71,10 @@ export default function Years({styles}) {
         label='Укажите срок кредитования'
         value={yearsRate}
         step={YEARS_RANGE_STEP}
-        min={YEARS_MIN_RANGE}
-        max={YEARS_MAX_RANGE}
+        min={YearsMinRange[type]}
+        max={YearsMaxRange[type]}
         prefix={` ${Postfix.YEARS}`}
+        isCalculatePrefix
         withMaxText
         onChange={handleRangeChange}
       />
@@ -77,5 +83,6 @@ export default function Years({styles}) {
 }
 
 Years.propTypes = {
+  type: Proptypes.string.isRequired,
   styles: Proptypes.oneOfType([Proptypes.string, Proptypes.object]),
 };

@@ -2,11 +2,18 @@
 
 import React, {useState} from 'react';
 import Input from '../input/input';
-import {BreakPoint, InputName, MAX_PRICE, MIN_PRICE, Postfix} from '../../const';
+import {BreakPoint, InputName, MaxPrice, MinPrice, Postfix, PriceTitle} from '../../const';
 import styled from '@emotion/styled';
 import {useDispatch, useSelector} from 'react-redux';
 import {getDepositRate, getPrice} from '../../store/selectors';
-import {addSpaces, calcMinDeposit, changePrice, checkPriceRange, isAllowedKeyPress} from '../../utils/utils';
+import {
+  addSpaces,
+  calcMinDeposit,
+  changePrice,
+  checkPriceRange,
+  clearPostfix,
+  isAllowedKeyPress
+} from '../../utils/utils';
 import {setDeposit, setPrice} from '../../store/actions';
 import * as Proptypes from 'prop-types';
 
@@ -24,7 +31,7 @@ const InputDescription = styled.span`
   }
 `;
 
-export default function Price({styles}) {
+export default function Price({type, styles}) {
   const dispatch = useDispatch();
   const price = useSelector(getPrice);
   const depositRate = useSelector(getDepositRate);
@@ -42,8 +49,8 @@ export default function Price({styles}) {
     if (!isAllowedKeyPress(key)) {
       return;
     }
-    const value = evt.target.value;
-    if (!checkPriceRange(value)) {
+    const value = evt.target.value.replace(/^0+/, '');
+    if (!checkPriceRange(value, type)) {
       setPriceError(true);
     }
     if (value.length > 11) {
@@ -54,7 +61,7 @@ export default function Price({styles}) {
     dispatch(setDeposit(calcMinDeposit(value, depositRate)));
   };
   const handleFocus = (evt) => {
-    const newValue = evt.target.value.replace(` ${Postfix.RUBLES}`, '');
+    const newValue = clearPostfix(evt.target.value);
     dispatch(setPrice(newValue));
   };
   const handleBlur = (evt) => {
@@ -64,10 +71,10 @@ export default function Price({styles}) {
   };
   const handleControlClick = (evt) => {
     const newValue = evt.target.name === 'increment'
-      ? changePrice(price)
-      : changePrice(price, false);
+      ? changePrice(price, type)
+      : changePrice(price, type, false);
 
-    if (!checkPriceRange(newValue)) {
+    if (!checkPriceRange(newValue, type)) {
       setPriceError(true);
     } else {
       setPriceError(false);
@@ -92,15 +99,18 @@ export default function Price({styles}) {
         onControlClick={handleControlClick}
         type='text'
         inputmode='numeric'
-        label='Стоимость недвижимости'
+        label={PriceTitle[type]}
         autocomplete='off'
         css={styles}
       />
-      <InputDescription>От {MIN_PRICE} до {MAX_PRICE} {Postfix.RUBLES}</InputDescription>
+      <InputDescription>
+        От {MinPrice[type]} до {MaxPrice[type]} {Postfix.RUBLES}
+      </InputDescription>
     </>
   );
 }
 
 Price.propTypes = {
+  type: Proptypes.string.isRequired,
   styles: Proptypes.oneOfType([Proptypes.string, Proptypes.object]),
 };

@@ -9,15 +9,15 @@ export default function MomCapital() {
   const dispatch = useDispatch();
   const isMomCapital = useSelector(getMomCapitalFlag);
 
-  const handleCheckboxChange = (evt) => {
+  const handleChange = (evt) => {
     dispatch(setMomCapital(evt.target.checked));
   };
 
   return (
     <InputCheckbox
       label='Использовать материнский капитал'
-      name={InputName.CHECKBOX}
-      onChange={handleCheckboxChange}
+      name={InputName.MOM_CAPITAL}
+      onChange={handleChange}
       checked={isMomCapital}
     />
   );

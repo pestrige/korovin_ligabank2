@@ -11,6 +11,9 @@ const ActionType = {
   SET_YEARS: 'setYears',
   SET_YEARS_RATE: 'setYearsRate',
   SET_MOM_CAPITAL: 'setMomCapital',
+  SET_CASCO: 'setCASCO',
+  SET_INSURANCE: 'setInsurance',
+  SET_DEFAULTS: 'setDefaults',
 };
 
 export const setLoginPopup = createAction(ActionType.SET_LOGIN_OPEN, (flag) => ({payload: flag}));
@@ -22,5 +25,7 @@ export const setDeposit = createAction(ActionType.SET_DEPOSIT, (deposit) => ({pa
 export const setDepositRate = createAction(ActionType.SET_DEPOSIT_RATE, (rate) => ({payload: rate}));
 export const setYears = createAction(ActionType.SET_YEARS, (years) => ({payload: years}));
 export const setYearsRate = createAction(ActionType.SET_YEARS_RATE, (rate) => ({payload: rate}));
-export const setMomCapital = createAction(ActionType.SET_MOM_CAPITAL, (value) => ({payload: value}));
-
+export const setMomCapital = createAction(ActionType.SET_MOM_CAPITAL, (flag) => ({payload: flag}));
+export const setCASCO = createAction(ActionType.SET_CASCO, (flag) => ({payload: flag}));
+export const setInsurance = createAction(ActionType.SET_INSURANCE, (flag) => ({payload: flag}));
+export const setDefaults = createAction(ActionType.SET_DEFAULTS, (defaults) => ({payload: defaults}));

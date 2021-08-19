@@ -11,7 +11,7 @@ const Title = styled.h3`
   font-size: 22px;
   line-height: 140%;
   @media (max-width: ${BreakPoint.MAX_TABLET}px) {
-    margin-left: 0px;
+    margin-left: 0;
     max-width: 420px;
   }
   @media (max-width: ${BreakPoint.MAX_PHONE}px) {
@@ -28,7 +28,7 @@ export default function OfferTitle({type = '', isSuccess = true, styles}) {
       {
         isSuccess
           ? 'Наше предложение'
-          : `Наш банк не выдаёт ${CreditType[type].name} меньше ${MinCredit[type]} рублей.`
+          : `Наш банк не выдаёт ${CreditType[type].name} меньше ${MinCredit[type].string} рублей.`
       }
     </Title>
   );

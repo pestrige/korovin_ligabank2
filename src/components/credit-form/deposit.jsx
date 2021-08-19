@@ -8,10 +8,16 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getDeposit, getDepositRate, getPrice} from '../../store/selectors';
 import {addSpaces, calcDepositRate, calcMinDeposit, isAllowedKeyPress} from '../../utils/utils';
 import {setDeposit, setDepositRate} from '../../store/actions';
-import {DEPOSIT_RANGE_STEP, InputName, MAX_DEPOSIT_RATIO, MIN_DEPOSIT_RATIO, Postfix} from '../../const';
+import {
+  DepositRangeStep,
+  InputName,
+  MAX_DEPOSIT_RATIO,
+  MinDepositRatio,
+  Postfix
+} from '../../const';
 
 
-export default function Deposit({styles}) {
+export default function Deposit({type, styles}) {
   const dispatch = useDispatch();
   const price = useSelector(getPrice);
   const deposit = useSelector(getDeposit);
@@ -25,12 +31,12 @@ export default function Deposit({styles}) {
     if (!isAllowedKeyPress(key)) {
       return;
     }
-    const value = evt.target.value;
+    const value = evt.target.value.replace(/^0+/, '');
     const rate = calcDepositRate(price, value);
     const spacedValue = addSpaces(value);
-    if (rate < MIN_DEPOSIT_RATIO) {
-      dispatch(setDeposit(calcMinDeposit(price, MIN_DEPOSIT_RATIO, false)));
-      dispatch(setDepositRate(MIN_DEPOSIT_RATIO.toString()));
+    if (rate < MinDepositRatio[type]) {
+      dispatch(setDeposit(calcMinDeposit(price, MinDepositRatio[type], false)));
+      dispatch(setDepositRate(MinDepositRatio[type].toString()));
       return;
     }
     if (rate > MAX_DEPOSIT_RATIO) {
@@ -75,7 +81,8 @@ export default function Deposit({styles}) {
         name={InputName.DEPOSIT_RANGE}
         label='Укажите размер взноса'
         value={depositRate}
-        step={DEPOSIT_RANGE_STEP}
+        min={`${MinDepositRatio[type]}`}
+        step={DepositRangeStep[type]}
         prefix='%'
         onChange={handleRangeChange}
       />
@@ -84,5 +91,6 @@ export default function Deposit({styles}) {
 }
 
 Deposit.propTypes = {
+  type: Proptypes.string.isRequired,
   styles: Proptypes.oneOfType([Proptypes.string, Proptypes.object]),
 };
