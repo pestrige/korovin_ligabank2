@@ -10,7 +10,7 @@ import Input from '../input/input';
 import Button from '../button/button';
 import {css} from '@emotion/react';
 import {setStep} from '../../store/actions';
-import {deleteLastDigit, formatPhone} from '../../utils/formatPhone';
+import {checkPhoneLength, deleteLastDigit, formatPhone} from '../../utils/formatPhone';
 
 const ANIMATION_DELAY = 800;
 const PHONE_LENGTH = 18;
@@ -135,8 +135,8 @@ export default function CreditForm() {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     const isInputEmpty = !nameRef.current.value || !telRef.current.value || !mailRef.current.value;
-    const isPhoneInCorrect = phone.length !== PHONE_LENGTH;
-    if (isInputEmpty || isPhoneInCorrect) {
+    const isPhoneCorrect = checkPhoneLength(phone, PHONE_LENGTH);
+    if (isInputEmpty || !isPhoneCorrect) {
       setIsError(true);
       return;
     }
