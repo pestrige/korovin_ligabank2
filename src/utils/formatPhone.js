@@ -54,3 +54,5 @@ export const deleteLastDigit = (evt) => {
     return '';
   }
 };
+
+export const checkPhoneLength = (phone, length) => phone[0] === '+' ? phone.length === length : phone.length === length - 1;
