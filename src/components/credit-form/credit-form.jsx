@@ -1,15 +1,19 @@
 /** @jsxImportSource @emotion/react */
 
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import styled from '@emotion/styled';
 import StepTitle from '../step-title/step-title';
 import {BreakPoint, CreditType, Steps} from '../../const';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {getCreditType, getDeposit, getOrderNumber, getPrice, getYears} from '../../store/selectors';
 import Input from '../input/input';
 import Button from '../button/button';
 import {css} from '@emotion/react';
+import {setStep} from '../../store/actions';
+import {deleteLastDigit, formatPhone} from '../../utils/formatPhone';
 
+const ANIMATION_DELAY = 800;
+const PHONE_LENGTH = 18;
 const RESULTS_LINES = [
   {id: Math.random().toString(36), type: 'orderId', title: 'Номер заявки'},
   {id: Math.random().toString(36), type: 'creditType', title: 'Цель кредита'},
@@ -72,6 +76,7 @@ const InputsWrapper = styled.div`
     'tel tel . mail mail'
     '. btn btn btn .';
   row-gap: 30px;
+  animation: ${({isError}) => isError ? 'shake 0.8s' : 'none'};
   @media (max-width: ${BreakPoint.MAX_TABLET}px) {
     grid-template-areas:
     'name name name name name'
@@ -86,6 +91,17 @@ const InputsWrapper = styled.div`
     'btn btn btn btn btn';
     row-gap: 20px;
   }
+  @keyframes shake {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+      transform: translateX(-5px);
+    }
+    20%, 40%, 60%, 80% {
+      transform: translateX(5px);
+    }
+  }
 `;
 const styledButton = css`
   margin-top: 10px;
@@ -95,9 +111,20 @@ const styledButton = css`
   }
 `;
 
+const clearError = (timer, setIsError) => {
+  setIsError(false);
+  clearTimeout(timer);
+};
+
 export default function CreditForm() {
+  const dispatch = useDispatch();
   const creditType = useSelector(getCreditType);
+  const nameRef = useRef();
+  const telRef = useRef();
+  const mailRef = useRef();
   const creditName = CreditType[creditType].formName;
+  const [isError, setIsError] = useState(false);
+  const [phone, setPhone] = useState('');
   const results = {
     orderId: {type: 'orderId', value: useSelector(getOrderNumber)},
     creditType: {type: 'creditType', value: creditName},
@@ -105,9 +132,39 @@ export default function CreditForm() {
     deposit: {type: 'deposit', value: useSelector(getDeposit)},
     years: {type: 'years', value: useSelector(getYears)},
   };
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    const isInputEmpty = !nameRef.current.value || !telRef.current.value || !mailRef.current.value;
+    const isPhoneInCorrect = phone.length !== PHONE_LENGTH;
+    if (isInputEmpty || isPhoneInCorrect) {
+      setIsError(true);
+      return;
+    }
+    dispatch(setStep(Steps.FOURTH.id));
+  };
+  const handleInput = (evt) => {
+    const formattedPhone = formatPhone(evt);
+    setPhone(formattedPhone);
+  };
+  const handleInputKeyDown = (evt) => {
+    const value = deleteLastDigit(evt);
+    if (value === '') {
+      setPhone(value);
+    }
+  };
+
+  useEffect(() => {
+    if (isError) {
+      const timer = setTimeout(() => clearError(timer, setIsError), ANIMATION_DELAY);
+      return () => clearError(timer, setIsError);
+    }
+  });
+  useEffect(() => {
+    nameRef.current.focus();
+  }, []);
 
   return (
-    <Form id='credit-form'>
+    <Form id='credit-form' onSubmit={handleSubmit}>
       <StepTitle title={Steps.THIRD.title} isCentered>
         <Dl>
           {RESULTS_LINES.map(({type, title, id}) => (
@@ -117,26 +174,37 @@ export default function CreditForm() {
             </Wrapper>
           ))}
         </Dl>
-        <InputsWrapper>
+        <InputsWrapper isError={isError}>
           <Input
             name='name'
             type='text'
             placeholder='ФИО'
             wrapperStyle={css`grid-area: name`}
+            ref={nameRef}
           />
           <Input
-            name='name'
-            type='text'
+            name='phone'
+            type='tel'
             placeholder='Телефон'
+            maxLength={PHONE_LENGTH}
             wrapperStyle={css`grid-area: tel`}
+            ref={telRef}
+            value={phone}
+            onInput={handleInput}
+            onKeyDown={handleInputKeyDown}
           />
           <Input
             name='email'
             type='email'
             placeholder='E-mail'
             wrapperStyle={css`grid-area: mail`}
+            ref={mailRef}
           />
-          <Button isSmall css={styledButton}>
+          <Button
+            type='submit'
+            isSmall
+            css={styledButton}
+          >
             Отправить
           </Button>
         </InputsWrapper>

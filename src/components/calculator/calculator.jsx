@@ -11,6 +11,7 @@ import {BreakPoint, Steps} from '../../const';
 import {useSelector} from 'react-redux';
 import {getStep} from '../../store/selectors';
 import CreditForm from '../credit-form/credit-form';
+import SuccessPopup from '../../success-popup/success-popup';
 
 const CreditWrapper = styled.div`
   display: grid;
@@ -34,7 +35,8 @@ export default function Calculator({styles}) {
         <CreditWrapper>
           <CalculatorForm />
           {step >= Steps.SECOND.id && <CreditOffer/>}
-          {step === Steps.THIRD.id && <CreditForm />}
+          {step >= Steps.THIRD.id && <CreditForm />}
+          {step === Steps.FOURTH.id && <SuccessPopup />}
         </CreditWrapper>
       </Container>
     </section>

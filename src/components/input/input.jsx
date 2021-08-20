@@ -146,7 +146,9 @@ function Input ({
           type='button'
           icon={icon}
           onMouseDown={handleMouseDown}
+          onTouchStart={handleMouseDown}
           onMouseUp={handleMouseUp}
+          onTouchEnd={handleMouseUp}
         />}
       </Flex>
       {withControls && <Control isIncrement onControlClick={onControlClick}/>}
