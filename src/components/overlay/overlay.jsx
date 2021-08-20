@@ -42,6 +42,6 @@ export default function Overlay({children, onClose, ...attrs}) {
 }
 
 Overlay.propTypes = {
-  children: PropTypes.node,
-  onClose: PropTypes.func,
+  children: PropTypes.node.isRequired,
+  onClose: PropTypes.func.isRequired,
 };

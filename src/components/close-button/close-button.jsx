@@ -6,13 +6,17 @@ import {BreakPoint} from '../../const';
 const StyledButton = styled.button`
   display:  ${({isTop}) => isTop ? 'none' : 'block'};
   position: ${({isTop}) => isTop ? 'fixed' : 'absolute'};
-  top: 6px;
-  right: 6px;
+  top: ${({top}) => `${top}px`};
+  right: ${({right}) => `${right}px`};
   width: 30px;
   height: 30px;
   background-color: var(--color-background);
   border: none;
   cursor: pointer;
+  @media (max-width: ${BreakPoint.MAX_PHONE}px) {
+    top: 6px;
+    right: 6px;
+  }
   &::before, &::after {
     content: '';
     position: absolute;
@@ -37,19 +41,23 @@ const StyledButton = styled.button`
   }
 `;
 
-export default function CloseButton({onClose, isTop = false, ...attrs}) {
+export default function CloseButton({onClose, isTop = false, top = 6, right = 6, ...attrs}) {
   return (
     <StyledButton
       type='button'
       onClick={onClose}
       isTop={isTop}
+      top={top}
+      right={right}
       {...attrs}
     />
   );
 }
 
 CloseButton.propTypes = {
-  onClose: PropTypes.func,
+  onClose: PropTypes.func.isRequired,
   isTop: PropTypes.bool,
+  top: PropTypes.number,
+  right: PropTypes.number,
 };
 

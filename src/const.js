@@ -69,6 +69,7 @@ export const Steps = {
   FIRST: {id: 1, title: 'Шаг 1. Цель кредита'},
   SECOND: {id: 2, title: 'Шаг 2. Введите параметры кредита'},
   THIRD: {id: 3, title: 'Шаг 3. Оформление заявки'},
+  FOURTH: {id: 4, title: 'Спасибо за обращение в\u00A0наш банк.'},
 };
 
 export const CreditType = {
