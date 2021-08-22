@@ -25,7 +25,7 @@ const initialState = {
   isMomCapital: true,
   isCASCO: true,
   isInsurance: true,
-  orderId: 1,
+  orderId: 10,
 };
 
 export const reducer = createReducer(initialState, (builder) => {

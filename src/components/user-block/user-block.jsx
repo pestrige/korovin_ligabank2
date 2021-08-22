@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import userLogin from './user-login.svg';
 import {BreakPoint} from '../../const';
 import {useDispatch} from 'react-redux';
-import {setLoginPopup} from '../../store/actions';
+import {setLoginPopup, setToggleMenu} from '../../store/actions';
 
 const StyledUl = styled.ul`
   display: ${({isMobileMenu}) => isMobileMenu ? 'none' : 'flex'};
@@ -78,7 +78,12 @@ const StyledSpan = styled.span`
 
 export default function UserBlock({isMenuOpen = false, isMobileMenu = false, ...attrs}) {
   const dispatch = useDispatch();
-  const handleClick = () => dispatch(setLoginPopup({isOpen: true}));
+  const handleClick = () => {
+    if (isMobileMenu) {
+      dispatch(setToggleMenu(false));
+    }
+    dispatch(setLoginPopup({isOpen: true}));
+  };
 
   return (
     <StyledUl isMobileMenu={isMobileMenu} isOpen={isMenuOpen} {...attrs}>

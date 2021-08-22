@@ -11,7 +11,7 @@ import {BreakPoint, Steps} from '../../const';
 import {useSelector} from 'react-redux';
 import {getStep} from '../../store/selectors';
 import CreditForm from '../credit-form/credit-form';
-import SuccessPopup from '../../success-popup/success-popup';
+import SuccessPopup from '../success-popup/success-popup';
 
 const CreditWrapper = styled.div`
   display: grid;

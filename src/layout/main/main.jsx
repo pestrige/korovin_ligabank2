@@ -4,6 +4,7 @@ import {css} from '@emotion/react';
 import {BreakPoint} from '../../const';
 import Tabs from '../../components/tabs/tabs';
 import Calculator from '../../components/calculator/calculator';
+import Map from '../../components/map/map';
 
 const sliderWrapper = css`
   margin-bottom: 60px;
@@ -21,7 +22,22 @@ const tabsWrapper = css`
   }
 `;
 const calcWrapper = css`
-  margin-bottom: 110px;
+  margin-bottom: 63px;
+  @media (max-width: ${BreakPoint.MAX_TABLET}px) {
+    margin-bottom: 36px;
+  }
+  @media (max-width: ${BreakPoint.MAX_PHONE}px) {
+    margin-bottom: 28px;
+  }
+`;
+const mapWrapper = css`
+  margin-bottom: 115px;
+  @media (max-width: ${BreakPoint.MAX_TABLET}px) {
+    margin-bottom: 87px;
+  }
+  @media (max-width: ${BreakPoint.MAX_PHONE}px) {
+    margin-bottom: 65px;
+  }
 `;
 
 export default function Main() {
@@ -31,6 +47,7 @@ export default function Main() {
       <Slider styles={sliderWrapper}/>
       <Tabs styles={tabsWrapper}/>
       <Calculator styles={calcWrapper} />
+      <Map styles={mapWrapper}  />
     </main>
   );
 }

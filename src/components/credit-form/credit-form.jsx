@@ -120,11 +120,7 @@ export default function CreditForm() {
   const dispatch = useDispatch();
   const creditType = useSelector(getCreditType);
   const nameRef = useRef();
-  const telRef = useRef();
-  const mailRef = useRef();
   const creditName = CreditType[creditType].formName;
-  const [isError, setIsError] = useState(false);
-  const [phone, setPhone] = useState('');
   const results = {
     orderId: {type: 'orderId', value: useSelector(getOrderNumber)},
     creditType: {type: 'creditType', value: creditName},
@@ -132,24 +128,38 @@ export default function CreditForm() {
     deposit: {type: 'deposit', value: useSelector(getDeposit)},
     years: {type: 'years', value: useSelector(getYears)},
   };
+  const localData = localStorage.getItem('user');
+  const user = localData
+    ? JSON.parse(localData)
+    : {
+      name: '',
+      phone: '',
+      email: '',
+    };
+  const [form, setForm] = useState(user);
+  const [isError, setIsError] = useState(false);
+
+  const handleChange = (evt) => {
+    const {name, value} = evt.target;
+    setForm({
+      ...form,
+      [name]: name === 'phone' ? formatPhone(evt) : value,
+    });
+  };
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    const isInputEmpty = !nameRef.current.value || !telRef.current.value || !mailRef.current.value;
-    const isPhoneCorrect = checkPhoneLength(phone, PHONE_LENGTH);
+    const isInputEmpty = !form.name || !form.phone || !form.email;
+    const isPhoneCorrect = checkPhoneLength(form.phone, PHONE_LENGTH);
     if (isInputEmpty || !isPhoneCorrect) {
       setIsError(true);
       return;
     }
     dispatch(setStep(Steps.FOURTH.id));
   };
-  const handleInput = (evt) => {
-    const formattedPhone = formatPhone(evt);
-    setPhone(formattedPhone);
-  };
-  const handleInputKeyDown = (evt) => {
+  const handlePhoneInputKeyDown = (evt) => {
     const value = deleteLastDigit(evt);
     if (value === '') {
-      setPhone(value);
+      setForm({...form, phone: value});
     }
   };
 
@@ -162,6 +172,7 @@ export default function CreditForm() {
   useEffect(() => {
     nameRef.current.focus();
   }, []);
+  useEffect(() => localStorage.setItem('user', JSON.stringify(form)), [form]);
 
   return (
     <Form id='credit-form' onSubmit={handleSubmit}>
@@ -180,6 +191,8 @@ export default function CreditForm() {
             type='text'
             placeholder='ФИО'
             wrapperStyle={css`grid-area: name`}
+            value={form.name}
+            onChange={handleChange}
             ref={nameRef}
           />
           <Input
@@ -188,17 +201,17 @@ export default function CreditForm() {
             placeholder='Телефон'
             maxLength={PHONE_LENGTH}
             wrapperStyle={css`grid-area: tel`}
-            ref={telRef}
-            value={phone}
-            onInput={handleInput}
-            onKeyDown={handleInputKeyDown}
+            value={form.phone}
+            onInput={handleChange}
+            onKeyDown={handlePhoneInputKeyDown}
           />
           <Input
             name='email'
             type='email'
             placeholder='E-mail'
             wrapperStyle={css`grid-area: mail`}
-            ref={mailRef}
+            value={form.email}
+            onChange={handleChange}
           />
           <Button
             type='submit'

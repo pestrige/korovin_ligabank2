@@ -15,6 +15,7 @@ import {Link} from 'react-router-dom';
 import Button from '../button/button';
 import {BreakPoint} from '../../const';
 
+const ANIMATION_DELAY = 200;
 const InputName = {
   LOGIN: 'login',
   PASSWORD: 'password',
@@ -26,6 +27,9 @@ const StyledForm = styled.form`
   padding: 55px;
   background-color: var(--color-background);
   border: 4px solid var(--color-accent);
+  transition: transform 0.2s;
+  transform: ${({isScaled}) => isScaled ? 'scale(1)' : 'scale(0)'};
+
   @media (max-width: ${BreakPoint.MAX_TABLET}px) {
     width: 678px;
     padding-left: 84px;
@@ -101,15 +105,17 @@ export default function LoginPopup() {
   const passwordRef = useRef();
   const dispatch = useDispatch();
   const isLoginOpen = useSelector(getLoginPopupData);
-  const handleClose = () => {
-    dispatch(setLoginPopup(false));
-  };
   const storage = localStorage.getItem('auth');
   const initState = storage ? JSON.parse(storage) : {
     [InputName.LOGIN]: '',
     [InputName.PASSWORD]: '',
   };
   const [auth, setAuth] = useState(initState);
+  const [isScaled, setIsScaled] = useState(false);
+  const handleClose = () => {
+    setIsScaled(false);
+    setTimeout(() => dispatch(setLoginPopup(false)), ANIMATION_DELAY);
+  };
   const handleChange = (evt) => {
     const {name, value} = evt.target;
     setAuth({
@@ -124,6 +130,9 @@ export default function LoginPopup() {
     localStorage.setItem('auth', '');
   };
 
+  useEffect(() => {
+    setIsScaled(true);
+  }, []);
   useEffect(() => localStorage.setItem('auth', JSON.stringify(auth)), [auth]);
   useEffect(() => {
     nameRef.current?.focus();
@@ -133,6 +142,7 @@ export default function LoginPopup() {
   return isLoginOpen && (
     <Overlay onClose={handleClose}>
       <StyledForm
+        isScaled={isScaled}
         action='#'
         name='loginForm'
         onClick={(evt) => evt.stopPropagation()}

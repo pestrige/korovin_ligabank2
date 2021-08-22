@@ -12,12 +12,6 @@ const headerItems = [
   {id: Math.random().toString(36), name: 'Конвертер валют', path: '/currency'},
   {id: Math.random().toString(36), name: 'Контакты', path: '/contacts'},
 ];
-const footerItems = [
-  {id: Math.random().toString(36), name: 'Услуги', path: '/'},
-  {id: Math.random().toString(36), name: 'Рассчитать кредит', path: '/credit'},
-  {id: Math.random().toString(36), name: 'Контакты', path: '/contacts'},
-  {id: Math.random().toString(36), name: 'Задать вопрос', path: '/ask'},
-];
 
 const StyledNav = styled.nav`
   min-width: ${BreakPoint.PHONE}px;
@@ -45,6 +39,7 @@ const StyledUl = styled.ul`
   padding-left: 0;
   list-style: none;
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   align-items: start;
 
@@ -63,11 +58,10 @@ const StyledUl = styled.ul`
 `;
 
 export default function MainNav({
-  isFooter = false,
   isOpen = false,
   onToggle,
   ...attrs}) {
-  const menuItems = isFooter ? footerItems : headerItems;
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -78,19 +72,18 @@ export default function MainNav({
   return (
     <StyledNav isOpen={isOpen} {...attrs}>
       <StyledUl>
-        {menuItems.map(({id, name, path}) => (
+        {headerItems.map(({id, name, path}) => (
           <MainNavItem key={id} path={path}>
             {name}
           </MainNavItem>))}
       </StyledUl>
-      {isOpen && <UserBlock isMobileMenu/>}
+      {isOpen && <UserBlock isMobileMenu />}
       {isOpen && <CloseButton onClose={onToggle} isTop/>}
     </StyledNav>
   );
 }
 
 MainNav.propTypes = {
-  isFooter: PropTypes.bool,
   isOpen: PropTypes.bool,
   onToggle: PropTypes.func,
 };
