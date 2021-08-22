@@ -16,7 +16,7 @@
 - React
 - Redux
 - Emotion / Styled Components
-- Библиотеки Swiper
+- Библиотеки Swiper, React-Yandex-Map, Reselect
 
 ---
 Превью:
