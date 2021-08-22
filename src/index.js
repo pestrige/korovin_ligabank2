@@ -48,9 +48,9 @@ const globalStyles = css`
   }
 
   .root {
-    display: grid;
-    grid-template-rows: auto 1fr auto;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
 
   .visually-hidden:not(:focus):not(:active),

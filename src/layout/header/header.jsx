@@ -32,7 +32,7 @@ const StyledHeader = styled.header`
     right: 0;
     z-index: 2;
     padding-top: 15px;
-    padding-bottom: 5px;
+    padding-bottom: ${({isMenuOpen}) => isMenuOpen ? '15px' : '5px'};
   }
 `;
 const logoStyle = css`

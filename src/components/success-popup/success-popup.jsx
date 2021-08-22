@@ -1,12 +1,13 @@
-import React from 'react';
-import Overlay from '../components/overlay/overlay';
+import React, {useEffect, useState} from 'react';
+import Overlay from '../overlay/overlay';
 import styled from '@emotion/styled';
-import {BreakPoint, Steps} from '../const';
-import CloseButton from '../components/close-button/close-button';
+import {BreakPoint, Steps} from '../../const';
+import CloseButton from '../close-button/close-button';
 import {useDispatch, useSelector} from 'react-redux';
-import {setOrderId, setStep} from '../store/actions';
-import {getOrderId} from '../store/selectors';
+import {setOrderId, setStep} from '../../store/actions';
+import {getOrderId} from '../../store/selectors';
 
+const ANIMATION_DELAY = 200;
 const Wrapper = styled.div`
   position: relative;
   padding: 50px 25px;
@@ -19,6 +20,8 @@ const Wrapper = styled.div`
   align-items: center;
   background-color: var(--color-background);
   border-radius: 4px;
+  transition: transform 0.2s;
+  transform: ${({isScaled}) => isScaled ? 'scale(1)' : 'scale(0)'};
   @media (max-width: ${BreakPoint.MAX_TABLET}px) {
     padding: 40px 25px;
     width: 678px;
@@ -51,14 +54,21 @@ const Message = styled.p`
 export default function SuccessPopup() {
   const dispatch = useDispatch();
   const orderId = useSelector(getOrderId);
+  const [isScaled, setIsScaled] = useState(false);
   const handleClose = () => {
-    dispatch(setStep(Steps.SECOND.id));
-    dispatch(setOrderId(orderId + 1));
+    setIsScaled(false);
+    setTimeout(() => {
+      dispatch(setStep(Steps.SECOND.id));
+      dispatch(setOrderId(orderId + 1));
+    }, ANIMATION_DELAY);
   };
+  useEffect(() => {
+    setIsScaled(true);
+  }, []);
 
   return (
     <Overlay onClose={handleClose}>
-      <Wrapper onClick={(evt) => evt.stopPropagation()}>
+      <Wrapper isScaled={isScaled} onClick={(evt) => evt.stopPropagation()}>
         <Title>
           {Steps.FOURTH.title}
         </Title>
