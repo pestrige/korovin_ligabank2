@@ -5,7 +5,11 @@ import {BreakPoint} from '../../const';
 import Tabs from '../../components/tabs/tabs';
 import Calculator from '../../components/calculator/calculator';
 import Map from '../../components/map/map';
+import styled from '@emotion/styled';
 
+const StyledMain = styled.main`
+  flex-grow: 1;
+`;
 const sliderWrapper = css`
   margin-bottom: 60px;
   @media (max-width: ${BreakPoint.MAX_TABLET}px) {
@@ -42,12 +46,12 @@ const mapWrapper = css`
 
 export default function Main() {
   return (
-    <main>
+    <StyledMain>
       <h1 className='visually-hidden'>ЛИГА БАНК - лучший банк</h1>
       <Slider styles={sliderWrapper}/>
       <Tabs styles={tabsWrapper}/>
       <Calculator styles={calcWrapper} />
       <Map styles={mapWrapper}  />
-    </main>
+    </StyledMain>
   );
 }
