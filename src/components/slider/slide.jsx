@@ -53,6 +53,7 @@ const Image = styled.img`
   display: block;
   width: 1366px;
   height: 400px;
+  object-fit: cover;
   @media (max-width: ${BreakPoint.MAX_TABLET}px) {
     width: 768px;
     height: 300px;
