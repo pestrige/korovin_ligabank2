@@ -15,6 +15,10 @@ const Label = styled.label`
   font-size: 16px;
   line-height: 22px;
   cursor: pointer;
+  transition: opacity 0.3s;
+  &:hover {
+    opacity: 0.8;
+  }
   @media (max-width: ${BreakPoint.MAX_PHONE}px) {
     font-size: 14px;
     line-height: 20px;

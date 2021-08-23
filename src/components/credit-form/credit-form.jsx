@@ -194,6 +194,7 @@ export default function CreditForm() {
             value={form.name}
             onChange={handleChange}
             ref={nameRef}
+            required
           />
           <Input
             name='phone'
@@ -204,6 +205,7 @@ export default function CreditForm() {
             value={form.phone}
             onInput={handleChange}
             onKeyDown={handlePhoneInputKeyDown}
+            required
           />
           <Input
             name='email'
@@ -212,6 +214,7 @@ export default function CreditForm() {
             wrapperStyle={css`grid-area: mail`}
             value={form.email}
             onChange={handleChange}
+            required
           />
           <Button
             type='submit'

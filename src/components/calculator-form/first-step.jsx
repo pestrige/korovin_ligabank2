@@ -37,7 +37,7 @@ const SelectButton = styled.button`
   transition: background-image 0.3s;
   @media (max-width: ${BreakPoint.MAX_PHONE}px) {
     padding-left: 14px;
-    padding-right: 45px;
+    padding-right: 40px;
     background-position: center right 13px;
   }
 `;
