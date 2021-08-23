@@ -6,9 +6,8 @@ import {BreakPoint} from '../../const';
 const StyledButton = styled.button`
   display: none;
   position: absolute;
-  width: 16px;
-  height: 10px;
-  margin-right: 14px;
+  width: 30px;
+  height: 20px;
   padding: 0;
   background-color: transparent;
   border: none;
@@ -32,7 +31,6 @@ const StyledButton = styled.button`
   @media (max-width: ${BreakPoint.MAX_PHONE}px) {
     display: block;
     position: relative;
-    margin-top: 3px;
   }
 `;
 
