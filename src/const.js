@@ -95,3 +95,8 @@ export const Anchor = {
   CALCULATOR: 'calculator',
   MAP: 'map',
 };
+
+export const Postfixs = {
+  YEARS: ['год', 'года', 'лет'],
+  RUBLES: ['рубль', 'рубля', 'рублей'],
+};

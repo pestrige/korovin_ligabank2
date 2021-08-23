@@ -4,7 +4,8 @@ import Input from '../input/input';
 import InputRange from '../input-range/input-range';
 import {useDispatch, useSelector} from 'react-redux';
 import {getYears, getYearsRate} from '../../store/selectors';
-import {calcPostfix, clearPostfix, isAllowedKeyPress, setPostfix} from '../../utils/utils';
+import {isAllowedKeyPress} from '../../utils/utils';
+import {calcPostfix, clearPostfix, setPostfix} from '../../utils/postfix';
 import {setYears, setYearsRate} from '../../store/actions';
 import {
   InputName,

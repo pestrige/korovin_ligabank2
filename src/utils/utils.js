@@ -9,13 +9,13 @@ import {
   Postfix,
   PriceStep, YearsMinRange
 } from '../const';
+import {calcPostfix, clearPostfix} from './postfix';
 
 const MONTHS = 12;
 const MAX_PERCENTAGE = 100;
 const STEP = 1;
 const ORDER_DIGITS_COUNT = 4;
 const MAX_ORDER_DIGITS_COUNT = 1000;
-const postfixs = ['год', 'года', 'лет'];
 
 export const isAllowedKeyPress = (key) => ALLOWED_KEYS.includes(key) || key === 'Backspace' || key === 'Delete';
 
@@ -28,24 +28,7 @@ export const addSpaces = (value) => {
   return stringWithSpaces.trim();
 };
 
-export const calcPostfix = (value) => {
-  const years = +value;
-  const lastChar = years % 10;
-  if (years > 10 && years < 20) {
-    return postfixs[2];
-  }
-  if (lastChar > 1 && lastChar < 5) {
-    return postfixs[1];
-  }
-  if (lastChar === 1) {
-    return postfixs[0];
-  }
-  return postfixs[2];
-};
-export const clearPostfix = (value) => value.replace(/\s[а-яё]+$/i, '');
-export const setPostfix = (value) => `${value} ${calcPostfix(value)}`;
-
-export const toNumber = (string) => Math.round(string.replace(` ${Postfix.RUBLES}`, '').replace(/\s/g, ''));
+export const toNumber = (string) => Math.round(clearPostfix(string).replace(/\s/g, ''));
 
 export const checkPriceRange = (price, type) => {
   const value = typeof price === 'string' ? toNumber(price) : price;
@@ -57,13 +40,18 @@ export const changePrice = (price, type, isIncrement = true) => isIncrement
   : toNumber(price) - PriceStep[type];
 
 export const calcMinDeposit = (price, rate = '10', withPostfix = true) => {
+  // eslint-disable-next-line no-console
+  console.log('price in calcMinDeposit', price);
   const adaptedPrice = typeof price === 'string' ? toNumber(price) : price;
   const adaptedRate = Number(rate) / 100;
   const deposit = Math.round(adaptedPrice * adaptedRate);
   return withPostfix ? `${addSpaces(deposit)} ${Postfix.RUBLES}` : addSpaces(deposit);
 };
 
-export const calcDepositRate = (price, deposit) => {
+export const calcDepositRate = (price, deposit, type) => {
+  if (deposit === '') {
+    return type === CreditType.mortgage.value ? 10 : 20;
+  }
   const adaptedPrice = toNumber(price);
   const adaptedDeposit = toNumber(deposit);
   return adaptedDeposit * 100 / adaptedPrice;
@@ -83,7 +71,7 @@ export const calcCreditSum = (price, deposit, options) => {
   const adaptedPrice = typeof price === 'string' ? toNumber(price) : price;
   const adaptedDeposit = typeof deposit === 'string' ? toNumber(deposit) : deposit;
   const sum = adaptedPrice - adaptedDeposit - options;
-  const sumAsString = `${addSpaces(sum)} ${Postfix.RUBLES}`;
+  const sumAsString = `${addSpaces(sum)} ${calcPostfix(sum, 'RUBLES')}`;
   return {number: sum, string: sumAsString};
 };
 
@@ -117,7 +105,7 @@ export const calcPayment = (sum, rate, years) => {
 
   return {
     number: payment,
-    string: `${addSpaces(payment)} рублей`,
+    string: `${addSpaces(payment)} ${calcPostfix(payment, 'RUBLES')}`,
   };
 };
 
@@ -125,7 +113,7 @@ export const calcIncome = (payment) => {
   const income = Math.round(payment / INCOME_RATE);
   return {
     number: income,
-    string: `${addSpaces(income)} рублей`,
+    string: `${addSpaces(income)} ${calcPostfix(income, 'RUBLES')}`,
   };
 };
 

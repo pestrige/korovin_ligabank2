@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import {BreakPoint} from '../../const';
-import {calcPostfix} from '../../utils/utils';
+import {calcPostfix} from '../../utils/postfix';
 
 const Wrapper = styled.div`
   margin-bottom: 23px;
