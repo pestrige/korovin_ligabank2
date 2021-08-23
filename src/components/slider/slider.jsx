@@ -25,6 +25,7 @@ export default function Slider({styles = ''}) {
         centeredSlides
         autoplay={{ delay: 4000, disableOnInteraction: false }}
         pagination={{clickable: true}}
+        preloadImages={false}
       >
         {slides.map((slide) => (
           <SwiperSlide key={`${slide.id}-${slide.name}`}>

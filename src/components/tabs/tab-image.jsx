@@ -15,6 +15,18 @@ const ImageBlock = styled.div`
     float: right;
   }
 `;
+const Img = styled.img`
+  width: 440px;
+  height: 290px;
+  @media (max-width: ${BreakPoint.MAX_TABLET}px) {
+    width: 289px;
+    height: 260px;
+  }
+  @media (max-width: ${BreakPoint.MAX_PHONE}px) {
+    width: 87px;
+    height: 113px;
+  }
+`;
 
 export default function TabImage({id}) {
   return (
@@ -42,7 +54,7 @@ export default function TabImage({id}) {
           srcSet={`${process.env.PUBLIC_URL}/images/tabs/tab${id}_tablet.jpg 1x, ${process.env.PUBLIC_URL}/images/tabs/tab${id}_tablet@2x.jpg 2x`}
           media={`(max-width: ${BreakPoint.MAX_TABLET}px)`}
         />
-        <img
+        <Img
           srcSet={`${process.env.PUBLIC_URL}/images/tabs/tab${id}@2x.jpg 2x`}
           src={`${process.env.PUBLIC_URL}/images/tabs/tab${id}.jpg`}
           alt={`tab ${id}`}
