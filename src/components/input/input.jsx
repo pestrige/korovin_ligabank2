@@ -61,7 +61,7 @@ const StyledInput = styled.input`
     border-color: ${({isError}) => isError ? '#e57373' : 'var(--color-dark-400)'};
   }
   @media (max-width: ${BreakPoint.MAX_PHONE}px) {
-    padding-left: ${({icon}) => icon ? '60px' : '15px'};
+    padding-left: 15px;
   }
   &::placeholder {
     font-size: 18px;
