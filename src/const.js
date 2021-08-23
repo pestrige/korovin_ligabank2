@@ -90,3 +90,8 @@ export const BreakPoint = {
   MAX_TABLET: 1023,
   DESKTOP: 1024,
 };
+
+export const Anchor = {
+  CALCULATOR: 'calculator',
+  MAP: 'map',
+};

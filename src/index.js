@@ -7,6 +7,7 @@ import { Global, css } from '@emotion/react';
 import App from './app/app';
 import {BreakPoint} from './const';
 import {store} from './store/store';
+import 'scroll-behavior-polyfill';
 
 const globalStyles = css`
   :root {

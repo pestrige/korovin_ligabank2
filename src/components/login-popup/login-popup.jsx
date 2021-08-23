@@ -127,7 +127,6 @@ export default function LoginPopup() {
     evt.preventDefault();
     dispatch(setLoginPopup(false));
     dispatch(setToggleMenu(false));
-    localStorage.setItem('auth', '');
   };
 
   useEffect(() => {
