@@ -23,6 +23,7 @@ export default function TabSlider({onSwiper, onSlideChange}) {
         centeredSlides
         pagination={{clickable: true}}
         onSlideChange={onSlideChange}
+        preloadImages={false}
         breakpoints={{
           320: {
             allowTouchMove: true,

@@ -51,6 +51,16 @@ const ImageBlock = styled.div`
 `;
 const Image = styled.img`
   display: block;
+  width: 1366px;
+  height: 400px;
+  @media (max-width: ${BreakPoint.MAX_TABLET}px) {
+    width: 768px;
+    height: 300px;
+  }
+  @media (max-width: ${BreakPoint.MAX_PHONE}px) {
+    width: ${({dataName}) => dataName === 'credits' ? '540px' : '400px'};
+    height: 226px;
+  }
 `;
 const Title = styled.h3`
   max-width: 400px;
@@ -91,7 +101,7 @@ const SubTitle = styled.p`
 `;
 
 export default function Slide({data}) {
-  const {id, title, text, buttonText, isDark, link} = data;
+  const {id, name, title, text, buttonText, isDark, link} = data;
 
   return (
     <Grid id={id}>
@@ -135,6 +145,7 @@ export default function Slide({data}) {
             media={`(max-width: ${BreakPoint.MAX_TABLET}px)`}
           />
           <Image
+            dataName={name}
             src={`${process.env.PUBLIC_URL}/images/slides/slide${id}.jpg`}
             srcSet={`${process.env.PUBLIC_URL}/images/slides/slide${id}@2x.jpg 2x`}
             alt={`slide ${id}`}
@@ -148,6 +159,7 @@ export default function Slide({data}) {
 Slide.propTypes = {
   data: PropTypes.shape({
     id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
     buttonText: PropTypes.string,
