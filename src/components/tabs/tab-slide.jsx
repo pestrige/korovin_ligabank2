@@ -120,7 +120,7 @@ const styledButton = css`
 `;
 
 export default function TabSlide({data}) {
-  const {id, title, benefits, isButton, text, linkText} = data;
+  const {id, name, title, benefits, isButton, text, linkText, link} = data;
   return (
     <Slide>
       <Title>
@@ -137,10 +137,11 @@ export default function TabSlide({data}) {
       {text &&
         <Text>
           {text}
-          <TextLink href={'/#'}>{linkText}</TextLink>
+          <TextLink href={`#${link}`}>{linkText}</TextLink>
         </Text>}
       {isButton &&
         <Button
+          to={`/${name}`}
           isPadding
           isAdaptive
           isSmall
@@ -165,5 +166,6 @@ TabSlide.propTypes = {
     isButton: PropTypes.bool,
     text: PropTypes.string,
     linkText: PropTypes.string,
+    link: PropTypes.string,
   }).isRequired,
 };

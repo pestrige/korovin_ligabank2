@@ -7,7 +7,7 @@ import CalculatorForm from '../calculator-form/calculator-form';
 import CreditOffer from '../credit-offer/credit-offer';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import {BreakPoint, Steps} from '../../const';
+import {Anchor, BreakPoint, Steps} from '../../const';
 import {useSelector} from 'react-redux';
 import {getStep} from '../../store/selectors';
 import CreditForm from '../credit-form/credit-form';
@@ -29,9 +29,11 @@ export default function Calculator({styles}) {
   const step = useSelector(getStep);
 
   return (
-    <section css={styles}>
+    <section
+      css={styles}
+    >
       <Container>
-        <SectionTitle>Кредитный калькулятор</SectionTitle>
+        <SectionTitle id={Anchor.CALCULATOR}>Кредитный калькулятор</SectionTitle>
         <CreditWrapper>
           <CalculatorForm />
           {step >= Steps.SECOND.id && <CreditOffer/>}

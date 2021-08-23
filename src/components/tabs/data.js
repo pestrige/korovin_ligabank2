@@ -14,6 +14,7 @@ export const slides = [
     isButton: false,
     text: 'Рассчитайте ежемесячный платеж и\u00A0ставку по кредиту воспользовавшись нашим ',
     linkText: 'кредитным калькулятором',
+    link: 'calculator',
   },
   {id: 2,
     name: 'insurance',

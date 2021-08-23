@@ -21,9 +21,9 @@ const Title = styled.h2`
   }
 `;
 
-export default function SectionTitle({children, margin = ''}) {
+export default function SectionTitle({children, margin = '', ...attrs}) {
   return (
-    <Title margin={margin}>
+    <Title margin={margin} {...attrs}>
       {children}
     </Title>
   );

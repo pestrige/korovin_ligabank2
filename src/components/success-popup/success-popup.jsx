@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import Overlay from '../overlay/overlay';
 import styled from '@emotion/styled';
-import {BreakPoint, Steps} from '../../const';
+import {Anchor, BreakPoint, Steps} from '../../const';
 import CloseButton from '../close-button/close-button';
 import {useDispatch, useSelector} from 'react-redux';
 import {setOrderId, setStep} from '../../store/actions';
 import {getOrderId} from '../../store/selectors';
+import {scrollTo} from '../../utils/scroll-to';
 
 const ANIMATION_DELAY = 200;
 const Wrapper = styled.div`
@@ -60,6 +61,7 @@ export default function SuccessPopup() {
     setTimeout(() => {
       dispatch(setStep(Steps.SECOND.id));
       dispatch(setOrderId(orderId + 1));
+      scrollTo(Anchor.CALCULATOR);
     }, ANIMATION_DELAY);
   };
   useEffect(() => {

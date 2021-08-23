@@ -10,7 +10,7 @@ import Input from '../input/input';
 import Button from '../button/button';
 import {css} from '@emotion/react';
 import {setStep} from '../../store/actions';
-import {checkPhoneLength, deleteLastDigit, formatPhone} from '../../utils/formatPhone';
+import {checkPhoneLength, deleteLastDigit, formatPhone} from '../../utils/format-phone';
 
 const ANIMATION_DELAY = 800;
 const PHONE_LENGTH = 18;

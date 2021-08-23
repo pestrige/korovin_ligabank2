@@ -3,6 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {BreakPoint} from '../../const';
+import {Link} from 'react-router-dom';
 
 const mediaQueryTablet = `@media (max-width: ${BreakPoint.MAX_TABLET}px)`;
 const mediaQueryPhone = `@media (max-width: ${BreakPoint.MAX_PHONE}px)`;
@@ -51,15 +52,11 @@ export default function Button({
   ...attrs
 }) {
   const Tag = attrs.href ? 'a' : 'button';
+  const styles = stylingButton(variant, isInline, isAdaptive, isPadding, isSmall, height);
 
-  return (
-    <Tag
-      css={stylingButton(variant, isInline, isAdaptive, isPadding, isSmall, height)}
-      {...attrs}
-    >
-      {children}
-    </Tag>
-  );
+  return attrs.to
+    ? <Link css={styles} {...attrs}>{children}</Link>
+    : <Tag css={styles} {...attrs}>{children}</Tag>;
 }
 
 Button.propTypes = {
