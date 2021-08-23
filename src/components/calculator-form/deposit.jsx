@@ -6,14 +6,20 @@ import Input from '../input/input';
 import InputRange from '../input-range/input-range';
 import {useDispatch, useSelector} from 'react-redux';
 import {getDeposit, getDepositRate, getPrice} from '../../store/selectors';
-import {addSpaces, calcDepositRate, calcMinDeposit, isAllowedKeyPress} from '../../utils/utils';
+import {
+  addSpaces,
+  calcDepositRate,
+  calcMinDeposit,
+  isAllowedKeyPress
+} from '../../utils/utils';
+import {clearPostfix, setPostfix} from '../../utils/postfix';
+
 import {setDeposit, setDepositRate} from '../../store/actions';
 import {
   DepositRangeStep,
   InputName,
   MAX_DEPOSIT_RATIO,
-  MinDepositRatio,
-  Postfix
+  MinDepositRatio
 } from '../../const';
 
 
@@ -32,7 +38,7 @@ export default function Deposit({type, styles}) {
       return;
     }
     const value = evt.target.value.replace(/^0+/, '');
-    const rate = calcDepositRate(price, value);
+    const rate = calcDepositRate(price, value, type);
     const spacedValue = addSpaces(value);
     if (rate < MinDepositRatio[type]) {
       dispatch(setDeposit(calcMinDeposit(price, MinDepositRatio[type], false)));
@@ -48,13 +54,12 @@ export default function Deposit({type, styles}) {
     dispatch(setDepositRate(Math.round(rate).toString()));
   };
   const handleFocus = (evt) => {
-    const newValue = evt.target.value.replace(` ${Postfix.RUBLES}`, '');
-    dispatch(setDeposit(newValue));
+    const value = clearPostfix(evt.target.value, 'RUBLES');
+    dispatch(setDeposit(value));
   };
   const handleBlur = (evt) => {
-    const value = evt.target.value;
-    const newValue = value === '' ? `0 ${Postfix.RUBLES}` : `${value} ${Postfix.RUBLES}`;
-    dispatch(setDeposit(newValue));
+    const value = setPostfix(evt.target.value, 'RUBLES');
+    dispatch(setDeposit(value));
   };
   const handleRangeChange = (value) => {
     dispatch(setDepositRate(value));

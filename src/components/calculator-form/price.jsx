@@ -11,9 +11,9 @@ import {
   calcMinDeposit,
   changePrice,
   checkPriceRange,
-  clearPostfix,
   isAllowedKeyPress
 } from '../../utils/utils';
+import {calcPostfix, clearPostfix, setPostfix} from '../../utils/postfix';
 import {setDeposit, setPrice} from '../../store/actions';
 import * as Proptypes from 'prop-types';
 
@@ -61,13 +61,12 @@ export default function Price({type, styles}) {
     dispatch(setDeposit(calcMinDeposit(value, depositRate)));
   };
   const handleFocus = (evt) => {
-    const newValue = clearPostfix(evt.target.value);
+    const newValue = clearPostfix(evt.target.value, 'RUBLES');
     dispatch(setPrice(newValue));
   };
   const handleBlur = (evt) => {
-    const value = evt.target.value;
-    const newValue = value === '' ? `0 ${Postfix.RUBLES}` : `${value} ${Postfix.RUBLES}`;
-    dispatch(setPrice(newValue));
+    const value = setPostfix(evt.target.value, 'RUBLES');
+    dispatch(setPrice(value));
   };
   const handleControlClick = (evt) => {
     const newValue = evt.target.name === 'increment'
@@ -79,7 +78,7 @@ export default function Price({type, styles}) {
     } else {
       setPriceError(false);
     }
-    const result = `${addSpaces(newValue)} ${Postfix.RUBLES}`;
+    const result = `${addSpaces(newValue)} ${calcPostfix(newValue, 'RUBLES')}`;
     dispatch(setPrice(result));
     dispatch(setDeposit(calcMinDeposit(newValue, depositRate)));
   };
