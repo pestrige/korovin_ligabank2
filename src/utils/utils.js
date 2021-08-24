@@ -40,11 +40,10 @@ export const changePrice = (price, type, isIncrement = true) => isIncrement
   : toNumber(price) - PriceStep[type];
 
 export const calcMinDeposit = (price, rate = '10', withPostfix = true) => {
-  // eslint-disable-next-line no-console
-  console.log('price in calcMinDeposit', price);
   const adaptedPrice = typeof price === 'string' ? toNumber(price) : price;
   const adaptedRate = Number(rate) / 100;
   const deposit = Math.round(adaptedPrice * adaptedRate);
+
   return withPostfix ? `${addSpaces(deposit)} ${Postfix.RUBLES}` : addSpaces(deposit);
 };
 

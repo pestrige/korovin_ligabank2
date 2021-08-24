@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+
 import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
@@ -16,9 +18,9 @@ const StyledDiv = styled.div`
   }
 `;
 
-export default function Container({children}) {
+export default function Container({children, styles}) {
   return (
-    <StyledDiv>
+    <StyledDiv css={styles}>
       {children}
     </StyledDiv>
   );
@@ -26,4 +28,5 @@ export default function Container({children}) {
 
 Container.propTypes = {
   children: PropTypes.node,
+  styles: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 };
