@@ -26,12 +26,12 @@ const tabsWrapper = css`
   }
 `;
 const calcWrapper = css`
-  margin-bottom: 63px;
+  margin-bottom: 100px;
   @media (max-width: ${BreakPoint.MAX_TABLET}px) {
-    margin-bottom: 36px;
+    margin-bottom: 16px;
   }
   @media (max-width: ${BreakPoint.MAX_PHONE}px) {
-    margin-bottom: 28px;
+    margin-bottom: 20px;
   }
 `;
 const mapWrapper = css`

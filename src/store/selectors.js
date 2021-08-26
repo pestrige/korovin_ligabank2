@@ -22,6 +22,7 @@ export const getMomCapitalFlag = (store) => store.isMomCapital;
 export const getCASCOFlag = (store) => store.isCASCO;
 export const getInsuranceFlag = (store) => store.isInsurance;
 export const getOrderId = (store) => store.orderId;
+export const getPriceError = (store) => store.priceError;
 
 const getOptionsSum = createSelector(
   [getCreditType, getMomCapitalFlag],

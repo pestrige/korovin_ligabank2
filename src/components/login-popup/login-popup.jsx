@@ -163,6 +163,7 @@ export default function LoginPopup() {
             label='Логин'
             autocomplete='off'
             css={styledLogin}
+            required
           />
           <Input
             name={InputName.PASSWORD}
@@ -173,6 +174,7 @@ export default function LoginPopup() {
             ref={passwordRef}
             icon={passwordIcon}
             autocomplete='off'
+            required
           />
           <Link
             to='/#'

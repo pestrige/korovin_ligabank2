@@ -26,6 +26,11 @@ const stylingButton = (variant, isInline, isAdaptive, isPadding, isSmall, height
   '&:hover': {
     opacity: 0.8,
   },
+  '&:disabled': {
+    backgroundColor: 'var(--color-outline)',
+    cursor: 'not-allowed',
+    opacity: 1,
+  },
   [mediaQueryTablet]: {
     minHeight: '48px',
     paddingLeft: isPadding ? '30px' : '0',

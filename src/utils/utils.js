@@ -32,12 +32,12 @@ export const toNumber = (string) => Math.round(clearPostfix(string).replace(/\s/
 
 export const checkPriceRange = (price, type) => {
   const value = typeof price === 'string' ? toNumber(price) : price;
-  return value >= toNumber(MinPrice[type]) && value <= toNumber(MaxPrice[type]);
+  return value >= MinPrice[type].number && value <= MaxPrice[type].number;
 };
 
 export const changePrice = (price, type, isIncrement = true) => isIncrement
-  ? toNumber(price) + PriceStep[type]
-  : toNumber(price) - PriceStep[type];
+  ? Math.min(toNumber(price) + PriceStep[type], MaxPrice[type].number)
+  : Math.max(toNumber(price) - PriceStep[type], MinPrice[type].number);
 
 export const calcMinDeposit = (price, rate = '10', withPostfix = true) => {
   const adaptedPrice = typeof price === 'string' ? toNumber(price) : price;
@@ -89,7 +89,7 @@ export const calcCreditRate = (price, depositRate, type, isCasco, isInsurance) =
   switch (type) {
     case CreditType.mortgage.value:
     default:
-      rateType = +depositRate > MORTGAGE_CHANGING_RATE ? 'MIN' : 'MAX';
+      rateType = +depositRate >= MORTGAGE_CHANGING_RATE ? 'MIN' : 'MAX';
       return MortgageRate[rateType];
     case CreditType.car.value:
       return calcCarCreditRate(price, isCasco, isInsurance);
@@ -132,8 +132,8 @@ export const getDefaults = (type) => {
       depositRate: `${MinDepositRatio.car}`,
       years: '1 год',
       yearsRate: YearsMinRange.car,
-      isCASCO: true,
-      isInsurance: true,
+      isCASCO: false,
+      isInsurance: false,
     },
   };
 

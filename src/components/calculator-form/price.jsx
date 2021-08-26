@@ -5,7 +5,7 @@ import Input from '../input/input';
 import {BreakPoint, InputName, MaxPrice, MinPrice, Postfix, PriceTitle} from '../../const';
 import styled from '@emotion/styled';
 import {useDispatch, useSelector} from 'react-redux';
-import {getDepositRate, getPrice} from '../../store/selectors';
+import {getDepositRate, getPrice, getPriceError} from '../../store/selectors';
 import {
   addSpaces,
   calcMinDeposit,
@@ -14,7 +14,7 @@ import {
   isAllowedKeyPress
 } from '../../utils/utils';
 import {calcPostfix, clearPostfix, setPostfix} from '../../utils/postfix';
-import {setDeposit, setPrice} from '../../store/actions';
+import {setDeposit, setPrice, setPriceError} from '../../store/actions';
 import * as Proptypes from 'prop-types';
 
 const InputDescription = styled.span`
@@ -35,14 +35,14 @@ export default function Price({type, styles}) {
   const dispatch = useDispatch();
   const price = useSelector(getPrice);
   const depositRate = useSelector(getDepositRate);
+  const priceError = useSelector(getPriceError);
 
-  const [priceError, setPriceError] = useState(false);
   const [key, setKey] = useState();
 
   const handleKeyDown = (evt) => {
     setKey(evt.key);
     if (priceError) {
-      setPriceError(false);
+      dispatch(setPriceError(false));
     }
   };
   const handlePriceChange = (evt) => {
@@ -51,7 +51,7 @@ export default function Price({type, styles}) {
     }
     const value = evt.target.value.replace(/^0+/, '');
     if (!checkPriceRange(value, type)) {
-      setPriceError(true);
+      dispatch(setPriceError(true));
     }
     if (value.length > 11) {
       return;
@@ -74,9 +74,9 @@ export default function Price({type, styles}) {
       : changePrice(price, type, false);
 
     if (!checkPriceRange(newValue, type)) {
-      setPriceError(true);
+      dispatch(setPriceError(true));
     } else {
-      setPriceError(false);
+      dispatch(setPriceError(false));
     }
     const result = `${addSpaces(newValue)} ${calcPostfix(newValue, 'RUBLES')}`;
     dispatch(setPrice(result));
@@ -102,7 +102,7 @@ export default function Price({type, styles}) {
         css={styles}
       />
       <InputDescription>
-        От {MinPrice[type]} до {MaxPrice[type]} {Postfix.RUBLES}
+        От {MinPrice[type].string} до {MaxPrice[type].string} {Postfix.RUBLES}
       </InputDescription>
     </>
   );
