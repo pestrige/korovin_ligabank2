@@ -1,10 +1,10 @@
 export const MinPrice = {
-  mortgage: '1 200 000',
-  car: '500 000',
+  mortgage: {string: '1 200 000', number: 1200000},
+  car: {string: '500 000', number: 500000},
 };
 export const MaxPrice = {
-  mortgage: '25 000 000',
-  car: '5 000 000',
+  mortgage: {string: '25 000 000', number: 25000000},
+  car: {string: '5 000 000', number: 5000000},
 };
 export const PriceStep = {
   mortgage: 100000,

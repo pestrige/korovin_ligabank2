@@ -58,8 +58,12 @@ export default function Deposit({type, styles}) {
     dispatch(setDeposit(value));
   };
   const handleBlur = (evt) => {
-    const value = setPostfix(evt.target.value, 'RUBLES');
-    dispatch(setDeposit(value));
+    const value = evt.target.value;
+    const normalizedValue = value === ''
+      ? calcMinDeposit(price, MinDepositRatio[type], false)
+      : value;
+    const result = setPostfix(normalizedValue, 'RUBLES');
+    dispatch(setDeposit(result));
   };
   const handleRangeChange = (value) => {
     dispatch(setDepositRate(value));

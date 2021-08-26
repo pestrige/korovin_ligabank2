@@ -15,6 +15,7 @@ const ActionType = {
   SET_INSURANCE: 'setInsurance',
   SET_DEFAULTS: 'setDefaults',
   SET_ORDER_NUMBER: 'setOrderNumber',
+  SET_PRICE_ERROR: 'setPriceError',
 };
 
 export const setLoginPopup = createAction(ActionType.SET_LOGIN_OPEN, (flag) => ({payload: flag}));
@@ -31,3 +32,4 @@ export const setCASCO = createAction(ActionType.SET_CASCO, (flag) => ({payload: 
 export const setInsurance = createAction(ActionType.SET_INSURANCE, (flag) => ({payload: flag}));
 export const setDefaults = createAction(ActionType.SET_DEFAULTS, (defaults) => ({payload: defaults}));
 export const setOrderId = createAction(ActionType.SET_ORDER_NUMBER, (value) => ({payload: value}));
+export const setPriceError = createAction(ActionType.SET_PRICE_ERROR, (flag) => ({payload: flag}));

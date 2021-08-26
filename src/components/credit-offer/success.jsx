@@ -4,7 +4,7 @@ import React from 'react';
 import Flex from '../flex/flex';
 import Button from '../button/button';
 import {useDispatch, useSelector} from 'react-redux';
-import {getCreditType, getFinalSum, getIncome, getCreditRate, getPayment} from '../../store/selectors';
+import {getCreditType, getFinalSum, getIncome, getCreditRate, getPayment, getPriceError} from '../../store/selectors';
 import styled from '@emotion/styled';
 import {css} from '@emotion/react';
 import OfferTitle from './offer-title';
@@ -65,6 +65,7 @@ export default function Success() {
   const finalRate = useSelector(getCreditRate);
   const payment = useSelector(getPayment);
   const income = useSelector(getIncome);
+  const priceError = useSelector(getPriceError);
 
   const handleClick = () => {
     dispatch(setStep(Steps.THIRD.id));
@@ -94,6 +95,7 @@ export default function Success() {
           isAdaptive
           onClick={handleClick}
           css={styledButton}
+          disabled={priceError}
         >
           Оформить заявку
         </Button>
