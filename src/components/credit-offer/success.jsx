@@ -40,11 +40,9 @@ const ResultValue = styled.p`
   margin: 0 0 6px;
   font-family: var(--font-medium);
   font-size: 22px;
-  @media (max-width: ${BreakPoint.MAX_TABLET}px) {
-    font-size: 18px;
-  }
   @media (max-width: ${BreakPoint.MAX_PHONE}px) {
     margin-bottom: 1px;
+    font-size: 18px;
   }
 `;
 const styledButton = css`
