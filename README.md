@@ -19,5 +19,24 @@
 - Библиотеки Swiper, React-Yandex-Map, Reselect
 
 ---
-Превью:
+## Превью:
 ![Скриншот главной страницы](preview.jpg)
+
+---
+### Инструкции:
+1. Клонируйте репозиторий на локальную машину:
+~~~
+git clone git@github.com:pestrige/korovin_ligabank2.git
+~~~
+2. Перейдите в папку проекта:
+~~~
+cd korovin_ligabank2
+~~~
+4. Установите зависимости:
+~~~
+yarn install
+~~~
+5. Запустите проект командой:
+~~~
+yarn start
+~~~
